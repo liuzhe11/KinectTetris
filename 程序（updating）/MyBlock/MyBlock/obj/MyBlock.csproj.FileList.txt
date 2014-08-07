@@ -1,0 +1,8 @@
+bin\Debug\MyBlock.exe
+bin\Debug\MyBlock.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\MyBlock.Properties.Resources.resources
+obj\Debug\MyBlock.csproj.GenerateResource.Cache
+obj\Debug\MyBlock.exe
+obj\Debug\MyBlock.pdb
+obj\Debug\MyBlock.Tetris.resources

@@ -1,0 +1,14 @@
+bin\Debug\Tetris.exe.manifest
+bin\Debug\Tetris.application
+bin\Debug\Tetris.exe
+bin\Debug\Tetris.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Tetris.BlockSet.xml
+obj\Debug\Tetris.FrmConfig.resources
+obj\Debug\Tetris.Properties.Resources.resources
+obj\Debug\Tetris.FrmTetris.resources
+obj\Debug\Tetris.csproj.GenerateResource.Cache
+obj\Debug\Tetris.exe.manifest
+obj\Debug\Tetris.application
+obj\Debug\Tetris.exe
+obj\Debug\Tetris.pdb

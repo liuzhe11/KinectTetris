@@ -1,0 +1,11 @@
+bin\Debug\Tetris2.exe
+bin\Debug\Tetris2.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Tetris2.BlockSet.xml
+obj\Debug\Tetris2.FrmConfig.resources
+obj\Debug\Tetris2.Properties.Resources.resources
+obj\Debug\Tetris2.FrmAbout.resources
+obj\Debug\Tetris2.FrmTetris.resources
+obj\Debug\Tetris.csproj.GenerateResource.Cache
+obj\Debug\Tetris2.exe
+obj\Debug\Tetris2.pdb
