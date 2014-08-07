@@ -201,7 +201,7 @@ namespace Kinect_TetrisV2
                         else if (((Block)(blockList[n])).Position.Y < i)
                         {
                             Point pt = ((Block)(blockList[n])).Position;
-                            pt.Y++;
+                            //pt.Y++;
                             ((Block)(blockList[n])).Position = pt;
                         }
                     }
