@@ -16,7 +16,7 @@ namespace Kinect_TetrisV2
             maxHeight = 22;
         }
 
-        public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROATE = 4 };
+        public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROTATE = 4 };
 
         private ArrayList blockList = new ArrayList();
         private Shape nextShape;
@@ -90,8 +90,8 @@ namespace Kinect_TetrisV2
                 case MOVE_TYPE.MOVE_RIGHT:
                     pt.X++;
                     break;
-                case MOVE_TYPE.MOVE_ROATE:
-                    s.Roate();
+                case MOVE_TYPE.MOVE_ROTATE:
+                    s.Rotate();
                     break;
                 default:
                     break;
@@ -122,7 +122,7 @@ namespace Kinect_TetrisV2
         /// <returns></returns>
         public bool ShapeCanPlace(Shape s)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < s.BlockCnt; i++)
             {
                 Point pt = s.Position;
                 Point ptOff = s.GetBlock(i).Position;
@@ -153,7 +153,7 @@ namespace Kinect_TetrisV2
 
         public void PlaceShape()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < nextShape.BlockCnt; i++)
             {
                 Point pt = nextShape.Position;
                 Point ptOff = nextShape.GetBlock(i).Position;

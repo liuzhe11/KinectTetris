@@ -25,14 +25,15 @@ namespace Kinect_TetrisV2
         private Block[] blockList;
         private int indexDef;
         private Point ptPosition;
+        private int blockCnt;
 
         private struct TETRIS
         {
             public int[,] def;
             public int size;
             public int block;
-
         }
+
         private static TETRIS[] tetrisDef;
         //设置所处位置的函数 相当于给所在坐标的位置赋值
         //tetrisDef[0].def[1,0] = 8;代表给坐标1，0处代表要填充 至于这个8则换成别的数也行
@@ -52,11 +53,11 @@ namespace Kinect_TetrisV2
                 }
             }
             */
-           tetrisDef[0].def = new int[2,2];
-           tetrisDef[0].def[0, 0] = 1;	//	88
-           tetrisDef[0].def[0, 1] = 1;	//	00
-           tetrisDef[0].size = 2;
-           tetrisDef[0].block = 2;
+            tetrisDef[0].def = new int[2,2];
+            tetrisDef[0].def[0, 0] = 1;	//	88
+            tetrisDef[0].def[0, 1] = 1;	//	00
+            tetrisDef[0].size = 2;
+            tetrisDef[0].block = 2;
 
             tetrisDef[1].def = new int[3,3];
             tetrisDef[1].def[1, 0] = 8;	//	080
@@ -68,10 +69,9 @@ namespace Kinect_TetrisV2
             tetrisDef[2].def = new int[2, 2];
             tetrisDef[2].def[0, 0] = 8;	//	80
             tetrisDef[2].def[1, 0] = 8;	//	88
-            tetrisDef[2].def[1, 1] = 8;	//	
+            tetrisDef[2].def[1, 1] = 8;	//
             tetrisDef[2].size = 2;
             tetrisDef[2].block = 3;
-
 
             tetrisDef[3].def = new int[2, 2];
             tetrisDef[3].def[0, 0] = 8;	//	88
@@ -88,8 +88,6 @@ namespace Kinect_TetrisV2
             tetrisDef[4].def[1, 2] = 8;
             tetrisDef[4].size = 3;
             tetrisDef[4].block = 4;
-
-            
 
             tetrisDef[5].def = new int[3, 3];
             tetrisDef[5].def[0, 0] = 8;	//	800
@@ -112,9 +110,9 @@ namespace Kinect_TetrisV2
         //建立了一个块链表数组
         public void Create(int index)
         {
-            indexDef = index;
+            indexDef  = index;
             blockList = new Block[tetrisDef[index].block];
-            int count = 0;
+            blockCnt  = tetrisDef[index].block;
             for (int i = 0; i < tetrisDef[index].size; i++)
             {
                 for (int j = 0; j < tetrisDef[index].size; j++)
@@ -122,8 +120,6 @@ namespace Kinect_TetrisV2
                     if (tetrisDef[index].def[i, j] != 0)
                     {
                         blockList[count] = new Block(index, i, j);
-                        count++;
-                        if (count >= 4) return;
                     }
                 }
             }
@@ -158,6 +154,12 @@ namespace Kinect_TetrisV2
             }
         }
 
+        public int BlockCnt {
+            get {
+                return blockCnt;
+            }
+        }
+
         public void Draw(Graphics g)
         {
             Draw(g, false);
@@ -183,8 +185,8 @@ namespace Kinect_TetrisV2
             }
         }
 
-        //旋转图形 
-        public void Roate()
+        //旋转图形
+        public void Rotate()
         {
             for (int i = 0; i < blockList.GetLength(0); i++)
             {
