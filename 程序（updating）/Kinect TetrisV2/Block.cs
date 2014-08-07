@@ -80,8 +80,8 @@ namespace Kinect_TetrisV2
         }
 
         /// <summary>
-        /// 验证是否要绘图 如果clear为真 则要清除产生的块 因为方块产生了 
-        /// 并且移动 必须把移动前一秒的块描成白色 
+        /// 验证是否要绘图 如果clear为真 则要清除产生的块 因为方块产生了
+        /// 并且移动 必须把移动前一秒的块描成白色
         /// </summary>
         /// <param name="g"></param>
         /// <param name="ptStart"></param>
@@ -102,6 +102,19 @@ namespace Kinect_TetrisV2
                 g.DrawLine(new Pen(GetDarkColor(colorIndex), 1), ptStart.X + (ptPosition.X * size) + size - 1, ptStart.Y + (ptPosition.Y * size) + size - 1, ptStart.X + (ptPosition.X * size) + size - 1, ptStart.Y + (ptPosition.Y * size));
                 g.DrawLine(new Pen(GetDarkColor(colorIndex), 1), ptStart.X + (ptPosition.X * size) + size - 1, ptStart.Y + (ptPosition.Y * size) + size - 1, ptStart.X + (ptPosition.X * size), ptStart.Y + (ptPosition.Y * size) + size - 1);
 
+            }
+            int cellSize = 30;
+            int xCellCnt = 10;
+            int yCellCnt = 20;
+            Pen p = new Pen(Color.FromArgb(200,200,200), 1);
+            for (int y = 0; y < yCellCnt; ++y)
+            {
+                g.DrawLine(p, 0, y * cellSize, xCellCnt * cellSize, y * cellSize);
+            }
+
+            for (int x = 0; x < xCellCnt; ++x)
+            {
+                g.DrawLine(p, x * cellSize, 0, x * cellSize, yCellCnt * cellSize);
             }
         }
 

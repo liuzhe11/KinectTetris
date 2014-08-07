@@ -561,6 +561,19 @@ namespace Kinect_TetrisV2
 
                 Graphics grMain = screenPanel.CreateGraphics();
                 grMain.FillRectangle(new SolidBrush(Color.White), 0, 0, screenPanel.Width, screenPanel.Height);
+                int cellSize = 30;
+                int xCellCnt = 10;
+                int yCellCnt = 20;
+                Pen p = new Pen(Color.FromArgb(200,200,200), 1);
+                for (int y = 0; y < yCellCnt; ++y)
+                {
+                    grMain.DrawLine(p, 0, y * cellSize, xCellCnt * cellSize, y * cellSize);
+                }
+
+                for (int x = 0; x < xCellCnt; ++x)
+                {
+                    grMain.DrawLine(p, x * cellSize, 0, x * cellSize, yCellCnt * cellSize);
+                }
                 mainBody.Draw(grMain);
             }
             if (gameStatus == GAME_STATUS.GAME_STOP || gameStatus == GAME_STATUS.GAME_OVER)
