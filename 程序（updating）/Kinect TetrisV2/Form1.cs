@@ -96,7 +96,7 @@ namespace Kinect_TetrisV2
             //cite the user-define pose libarary
             PopulatePoseLibrary();
             StartKinectST();
-
+            EnableDoubleBuffering();
         }
 
 
@@ -852,6 +852,16 @@ namespace Kinect_TetrisV2
                 default:
                     return (150);
             }
+        }
+
+        public void EnableDoubleBuffering()
+        {
+           // Set the value of the double-buffering style bits to true.
+           this.SetStyle(ControlStyles.DoubleBuffer |
+              ControlStyles.UserPaint |
+              ControlStyles.AllPaintingInWmPaint,
+              true);
+           this.UpdateStyles();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
