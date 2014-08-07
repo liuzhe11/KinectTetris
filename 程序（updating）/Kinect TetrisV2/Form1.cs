@@ -111,19 +111,26 @@ namespace Kinect_TetrisV2
             //Notice: this judgement doesn't work for MS
             if (null == kinect)
             {
-                this.ShowDialog();
+                // this.ShowDialog();
             }
-            this.label1.Text = "The Kinect Sensor is being checked";
-            // Allow tracking skeleton
-            kinect.SkeletonStream.Enable();
-            //Stop geting color and depth data
-            kinect.ColorStream.Disable();
-            kinect.DepthStream.Disable();
-            skeletonData = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
-            // Get Ready for Skeleton Ready Events
-            kinect.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(kinect_SkeletonFrameReady);
-            // Start Kinect sensor
-            kinect.Start();
+            try
+            {
+                this.label1.Text = "The Kinect Sensor is being checked";
+                // Allow tracking skeleton
+                kinect.SkeletonStream.Enable();
+                //Stop geting color and depth data
+                kinect.ColorStream.Disable();
+                kinect.DepthStream.Disable();
+                skeletonData = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
+                // Get Ready for Skeleton Ready Events
+                kinect.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(kinect_SkeletonFrameReady);
+                // Start Kinect sensor
+                kinect.Start();
+            }
+            catch (Exception ex)
+            {
+                this.label1.Text = "We cannot find any Kinect connected，Please check the USB or the power";
+            }
         }
 
         /// <summary>
