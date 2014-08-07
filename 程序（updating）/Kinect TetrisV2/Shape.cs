@@ -113,6 +113,7 @@ namespace Kinect_TetrisV2
             indexDef  = index;
             blockList = new Block[tetrisDef[index].block];
             blockCnt  = tetrisDef[index].block;
+            int count = 0;
             for (int i = 0; i < tetrisDef[index].size; i++)
             {
                 for (int j = 0; j < tetrisDef[index].size; j++)
@@ -120,6 +121,8 @@ namespace Kinect_TetrisV2
                     if (tetrisDef[index].def[i, j] != 0)
                     {
                         blockList[count] = new Block(index, i, j);
+                        count++;
+                        if (count >= 4) return;
                     }
                 }
             }
