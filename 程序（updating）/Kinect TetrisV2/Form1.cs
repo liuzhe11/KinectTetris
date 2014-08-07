@@ -14,7 +14,6 @@ using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.IO;
 
-
 namespace Kinect_TetrisV2
 {
     public partial class Form1 : Form
@@ -115,7 +114,7 @@ namespace Kinect_TetrisV2
             }
             try
             {
-                this.label1.Text = "The Kinect Sensor is being checked";
+                //this.label1.Text = "The Kinect Sensor is being checked";
                 // Allow tracking skeleton
                 kinect.SkeletonStream.Enable();
                 //Stop geting color and depth data
@@ -127,9 +126,10 @@ namespace Kinect_TetrisV2
                 // Start Kinect sensor
                 kinect.Start();
             }
+
             catch (Exception ex)
             {
-                this.label1.Text = "We cannot find any Kinect connected，Please check the USB or the power";
+                //this.label1.Text = "We cannot find any Kinect connected，Please check the USB or the power";
             }
         }
 
@@ -146,7 +146,7 @@ namespace Kinect_TetrisV2
                 //Tracked that defines whether a skeleton is 'tracked' or not.
                 //The untracked skeletons only give their position.
                 //if (SkeletonTrackingState.Tracked != data.TrackingState) continue;
-                this.label1.Text = "Kinect Sensor is successfully connected";
+                //this.label1.Text = "Kinect Sensor is successfully connected";
 
                 using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame()) // Open the Skeleton frame
                 {
@@ -196,9 +196,9 @@ namespace Kinect_TetrisV2
             }
             catch (Exception ex)
             {
-                this.label1.Text = "We cannot find any Kinect connected，Please check the USB or the power";
+                //this.label1.Text = "We cannot find any Kinect connected，Please check the USB or the power";
             }
-
+            
         }
 
 
@@ -299,22 +299,23 @@ namespace Kinect_TetrisV2
             this.startPose = new Pose();
             this.startPose.Title = "Start Pose";
             this.startPose.Angles = new PoseAngle[4];
-            this.startPose.Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 10);
-            this.startPose.Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 10);
-            this.startPose.Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 10);
-            this.startPose.Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 10);
+            this.startPose.Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 30);
+            this.startPose.Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 30);
+            this.startPose.Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 30);
+            this.startPose.Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 30);
 
 
             //Pose 1 - Both Hands Up
             this.poseLibrary[0] = new Pose();
-            this.poseLibrary[0].Title = "举起手来(Arms Up)";
+            this.poseLibrary[0].Title = "Arms Up - Rotate";
             this.poseLibrary[0].Angles = new PoseAngle[4];
-            this.poseLibrary[0].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 8);
-            this.poseLibrary[0].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 8);
-            this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 8);
-            this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 8);
+            this.poseLibrary[0].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 90, 30);
+            this.poseLibrary[0].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 90, 30);
+            this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 90, 30);
+            this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 90, 30);
 
 
+            /*
             //Pose 2 - Both Hands Cross
             this.poseLibrary[1] = new Pose();
             this.poseLibrary[1].Title = "把手交叉（Hands Cross）";
@@ -323,14 +324,14 @@ namespace Kinect_TetrisV2
             this.poseLibrary[1].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 0, 8);
             this.poseLibrary[1].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 285, 8);
             this.poseLibrary[1].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 180, 8);
-
+            */
 
             //Pose 3 - Left Up and Right Down
             this.poseLibrary[2] = new Pose();
-            this.poseLibrary[2].Title = "（举起左手）Left Up and Right Down";
+            this.poseLibrary[2].Title = "Left Up and Right Down";
             this.poseLibrary[2].Angles = new PoseAngle[4];
-            this.poseLibrary[2].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 95, 10);
-            this.poseLibrary[2].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 95, 10);
+            this.poseLibrary[2].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 30);
+            this.poseLibrary[2].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 30);
             this.poseLibrary[2].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 270, 30);
             this.poseLibrary[2].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 270, 30);
 
@@ -341,8 +342,8 @@ namespace Kinect_TetrisV2
             this.poseLibrary[3].Angles = new PoseAngle[4];
             this.poseLibrary[3].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 270, 30);
             this.poseLibrary[3].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 270, 30);
-            this.poseLibrary[3].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 85, 10);
-            this.poseLibrary[3].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 85, 10);
+            this.poseLibrary[3].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 30);
+            this.poseLibrary[3].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 30);
         }
 
         /// <summary>
@@ -561,9 +562,9 @@ namespace Kinect_TetrisV2
 
                 Graphics grMain = screenPanel.CreateGraphics();
                 grMain.FillRectangle(new SolidBrush(Color.White), 0, 0, screenPanel.Width, screenPanel.Height);
-                int cellSize = 30;
-                int xCellCnt = 10;
-                int yCellCnt = 20;
+                int cellSize = 40;
+                int xCellCnt = 12;
+                int yCellCnt = 15;
                 Pen p = new Pen(Color.FromArgb(200,200,200), 1);
                 for (int y = 0; y < yCellCnt; ++y)
                 {
@@ -882,7 +883,7 @@ namespace Kinect_TetrisV2
             DrawScreen();
             try
             {
-                pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\image\\instruction.bmp");
+                //pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\image\\instruction.bmp");
             }
             catch (FileNotFoundException ef)
             {
@@ -890,6 +891,5 @@ namespace Kinect_TetrisV2
 
             }
         }
-
     }
 }

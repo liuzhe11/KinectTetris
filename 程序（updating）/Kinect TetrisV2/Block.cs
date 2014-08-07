@@ -36,7 +36,7 @@ namespace Kinect_TetrisV2
         private Point ptPosition;
 
         //	方块大小
-        private static int size = 30;
+        private static int size = 40;
         private static int COLOR_CHANGE = 60;
 
         //System.Drawing.Color表示ARGB颜色从指定的8位颜色值（红色，绿色，蓝色）中创建结构
@@ -103,9 +103,9 @@ namespace Kinect_TetrisV2
                 g.DrawLine(new Pen(GetDarkColor(colorIndex), 1), ptStart.X + (ptPosition.X * size) + size - 1, ptStart.Y + (ptPosition.Y * size) + size - 1, ptStart.X + (ptPosition.X * size), ptStart.Y + (ptPosition.Y * size) + size - 1);
 
             }
-            int cellSize = 30;
-            int xCellCnt = 10;
-            int yCellCnt = 20;
+            int cellSize = 40;
+            int xCellCnt = 12;
+            int yCellCnt = 16;
             Pen p = new Pen(Color.FromArgb(200,200,200), 1);
             for (int y = 0; y < yCellCnt; ++y)
             {

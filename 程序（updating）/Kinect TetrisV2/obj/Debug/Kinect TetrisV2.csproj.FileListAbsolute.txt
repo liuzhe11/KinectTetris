@@ -27,3 +27,12 @@ F:\Git Workspace\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect_TetrisV2.
 F:\Git Workspace\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.csproj.GenerateResource.Cache
 F:\Git Workspace\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe
 F:\Git Workspace\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.pdb
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe.config
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.exe
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.pdb
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.pdb
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.csprojResolveAssemblyReference.cache
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect_TetrisV2.Form1.resources
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect_TetrisV2.Properties.Resources.resources
+F:\Git Workspace\KinectTetris\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.csproj.GenerateResource.Cache

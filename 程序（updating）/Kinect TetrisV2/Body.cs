@@ -12,8 +12,8 @@ namespace Kinect_TetrisV2
         //建立body区域的长宽 初始化参数得
         public Body()
         {
-            maxWidth = 10;
-            maxHeight = 22;
+            maxWidth = 12;
+            maxHeight = 15;
         }
 
         public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROTATE = 4 };
