@@ -1,0 +1,9 @@
+E:\HelloCSharp\Tetris1.0\Tetris1.0\bin\Debug\Tetris1.0.exe.config
+E:\HelloCSharp\Tetris1.0\Tetris1.0\bin\Debug\Tetris1.0.exe
+E:\HelloCSharp\Tetris1.0\Tetris1.0\bin\Debug\Tetris1.0.pdb
+E:\HelloCSharp\Tetris1.0\Tetris1.0\obj\Debug\Tetris1.0.csprojResolveAssemblyReference.cache
+E:\HelloCSharp\Tetris1.0\Tetris1.0\obj\Debug\Tetris1._0.Properties.Resources.resources
+E:\HelloCSharp\Tetris1.0\Tetris1.0\obj\Debug\Tetris1.0.csproj.GenerateResource.Cache
+E:\HelloCSharp\Tetris1.0\Tetris1.0\obj\Debug\Tetris1.0.exe
+E:\HelloCSharp\Tetris1.0\Tetris1.0\obj\Debug\Tetris1.0.pdb
+E:\HelloCSharp\Tetris1.0\Tetris1.0\obj\Debug\Tetris1._0.Form1.resources
