@@ -1,0 +1,225 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Drawing;
+using System.Collections;
+
+namespace Kinect_TetrisV2
+{
+    public class Body
+    {
+        //建立body区域的长宽 初始化参数得
+        public Body()
+        {
+            maxWidth = 10;
+            maxHeight = 22;
+        }
+
+        public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROATE = 4 };
+
+        private ArrayList blockList = new ArrayList();
+        private Shape nextShape;
+        private int maxWidth;
+        private int maxHeight;
+
+        public bool SetNextShape(Shape s)
+        {
+            nextShape = s;
+            nextShape.Position = new Point(4, 0);
+            bool ret = false;
+            //*
+            while (!ShapeCanPlace(nextShape))
+            {
+                Point pt = nextShape.Position;
+                pt.Y--;
+                nextShape.Position = pt;
+                ret = true;
+            }
+            //*/
+            return ret;
+        }
+
+        public void Draw(Graphics g)
+        {
+            DrawNextShape(g);
+
+            for (int i = 0; i < blockList.Count; i++)
+            {
+                ((Block)(blockList[i])).Draw(g);
+            }
+        }
+
+        /// <summary>
+        /// 移动和旋转方块的方法
+        /// </summary>
+        /// <param name="g">画布</param>
+        /// <param name="m">变换方位类型</param>
+        /// <returns></returns>
+        public bool MoveShape(Graphics g, MOVE_TYPE m)
+        {
+            Shape s = new Shape(nextShape.IndexDef);
+            s.Copy(nextShape);
+
+            Point pt = s.Position;
+            switch (m)
+            {
+                case MOVE_TYPE.MOVE_FALL:
+                    {
+                        while (ShapeCanPlace(s))
+                        {
+                            pt.Y++;
+                            s.Position = pt;
+                        }
+
+                        nextShape.Draw(g, true);
+                        pt.Y--;
+                        s.Position = pt;
+                        nextShape.Copy(s);
+                        nextShape.Draw(g);
+                        PlaceShape();
+                        return true;
+                        //break;
+                    }
+                case MOVE_TYPE.MOVE_DOWN:
+                    pt.Y++;
+                    break;
+                case MOVE_TYPE.MOVE_LEFT:
+                    pt.X--;
+                    break;
+                case MOVE_TYPE.MOVE_RIGHT:
+                    pt.X++;
+                    break;
+                case MOVE_TYPE.MOVE_ROATE:
+                    s.Roate();
+                    break;
+                default:
+                    break;
+            }
+
+            s.Position = pt;
+            if (ShapeCanPlace(s))
+            {
+                nextShape.Draw(g, true);
+                nextShape.Copy(s);
+                nextShape.Draw(g);
+            }
+            else
+            {
+                if (m == MOVE_TYPE.MOVE_DOWN)
+                {
+                    PlaceShape();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 判断位置是否到底
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public bool ShapeCanPlace(Shape s)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Point pt = s.Position;
+                Point ptOff = s.GetBlock(i).Position;
+                pt.Offset(ptOff.X, ptOff.Y);
+                if (PositionHasBlock(pt))
+                    return false;
+            }
+            return true;
+        }
+
+        public bool PositionHasBlock(Point pt)
+        {
+            if (pt.Y < 0) return false;
+            Rectangle rc = new Rectangle(0, 0, maxWidth, maxHeight);
+            if (!rc.Contains(pt))
+            {
+                return true;
+            }
+            for (int i = 0; i < blockList.Count; i++)
+            {
+                if (((Block)(blockList[i])).Position == pt)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void PlaceShape()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Point pt = nextShape.Position;
+                Point ptOff = nextShape.GetBlock(i).Position;
+                pt.Offset(ptOff.X, ptOff.Y);
+                nextShape.GetBlock(i).Position = pt;
+                blockList.Add(nextShape.GetBlock(i));
+            }
+        }
+
+        public void Reset()
+        {
+            blockList.Clear();
+        }
+
+        /// <summary>
+        /// 清行程序 把的填满的一行清除 首先判断是否存在一行中的空块
+        /// 存在的话则不能清除 反之 则清除 如果第i行清除 那么就把比i行少
+        /// 那些行自动沉下来一个
+        /// </summary>
+        /// <returns></returns>
+        public int ClearLines()
+        {
+            int count = 0;
+            for (int i = 0; i < maxHeight; i++)
+            {
+                bool clear = true;
+                for (int j = 0; j < maxWidth; j++)
+                {
+                    if (!PositionHasBlock(new Point(j, i)))
+                    {
+                        clear = false;
+                        break;
+                    }
+                }
+                if (clear)
+                {
+                    for (int n = blockList.Count - 1; n >= 0; n--)
+                    {
+                        //如果第i行满了 则清除i行
+                        if (((Block)(blockList[n])).Position.Y == i)
+                        {
+                            blockList.RemoveAt(n);
+                        }
+                        //其他的比i行小的那些行则自动沉下来
+                        else if (((Block)(blockList[n])).Position.Y < i)
+                        {
+                            Point pt = ((Block)(blockList[n])).Position;
+                            pt.Y++;
+                            ((Block)(blockList[n])).Position = pt;
+                        }
+                    }
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 画下次出现的方块的方法
+        /// </summary>
+        /// <param name="g"></param>
+        public void DrawNextShape(Graphics g)
+        {
+            nextShape.Draw(g);
+        }
+
+
+    }
+}

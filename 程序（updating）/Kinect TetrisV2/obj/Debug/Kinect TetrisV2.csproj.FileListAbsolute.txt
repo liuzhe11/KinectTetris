@@ -1,0 +1,21 @@
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe.config
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.csprojResolveAssemblyReference.cache
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinext_TetrisV2.Form1.resources
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinect_TetrisV2.Properties.Resources.resources
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.csproj.GenerateResource.Cache
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.pdb
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.exe
+E:\Kinect Dev\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.pdb
+C:\Users\LZ\Desktop\Kinect TetrisV2\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe.config
+C:\Users\LZ\Desktop\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.exe
+C:\Users\LZ\Desktop\Kinect TetrisV2\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.pdb
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe.config
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.exe
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\bin\Debug\Kinect TetrisV2.pdb
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect_TetrisV2.Form1.resources
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect_TetrisV2.Properties.Resources.resources
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.csproj.GenerateResource.Cache
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.exe
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.pdb
+C:\Users\LZ\Desktop\程序（updating）\Kinect TetrisV2\obj\Debug\Kinect TetrisV2.csprojResolveAssemblyReference.cache
