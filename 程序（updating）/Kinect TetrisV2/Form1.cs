@@ -26,7 +26,7 @@ namespace Kinect_TetrisV2
         public int speed;
         private int score;
         private int lines;
-        private KinectSensor kinect = null;//Point to Kinect object  
+        private KinectSensor kinect = null;//Point to Kinect object
         private Skeleton[] skeletonData;   //save the skeleton data got from Kinect Sensor
         private Pose[] poseLibrary;//user-defined pose library
         private Pose startPose;//user-defined pose
@@ -75,7 +75,7 @@ namespace Kinect_TetrisV2
 
         /// <summary>
         /// Brush used for drawing joints that are currently inferred
-        /// </summary>        
+        /// </summary>
         private readonly Brush inferredJointBrush = Brushes.Yellow;
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Kinect_TetrisV2
 
         /// <summary>
         /// Pen used for drawing bones that are currently inferred
-        /// </summary>        
+        /// </summary>
         private readonly Pen inferredBonePen = new Pen(Brushes.Gray, 1);
 
         public Form1()
@@ -96,33 +96,33 @@ namespace Kinect_TetrisV2
             //cite the user-define pose libarary
             PopulatePoseLibrary();
             StartKinectST();
-       
+
         }
 
-        
+
 
         /// <summary>
         /// method to check and open Kinect Sensor
         /// </summary>
         private void StartKinectST()
         {
-            // Get first Kinect Sensor  
+            // Get first Kinect Sensor
             kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
-            //Notice: this judgement doesn't work for MS  
+            //Notice: this judgement doesn't work for MS
             if (null == kinect)
             {
                 this.ShowDialog();
             }
             this.label1.Text = "The Kinect Sensor is being checked";
-            // Allow tracking skeleton  
+            // Allow tracking skeleton
             kinect.SkeletonStream.Enable();
-            //Stop geting color and depth data  
+            //Stop geting color and depth data
             kinect.ColorStream.Disable();
             kinect.DepthStream.Disable();
             skeletonData = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
-            // Get Ready for Skeleton Ready Events  
+            // Get Ready for Skeleton Ready Events
             kinect.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(kinect_SkeletonFrameReady);
-            // Start Kinect sensor   
+            // Start Kinect sensor
             kinect.Start();
         }
 
@@ -136,30 +136,30 @@ namespace Kinect_TetrisV2
             try
             {
 
-                //Tracked that defines whether a skeleton is 'tracked' or not.   
-                //The untracked skeletons only give their position.   
-                //if (SkeletonTrackingState.Tracked != data.TrackingState) continue;  
+                //Tracked that defines whether a skeleton is 'tracked' or not.
+                //The untracked skeletons only give their position.
+                //if (SkeletonTrackingState.Tracked != data.TrackingState) continue;
                 this.label1.Text = "Kinect Sensor is successfully connected";
 
-                using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame()) // Open the Skeleton frame  
+                using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame()) // Open the Skeleton frame
                 {
-                    // check that a frame is available  
+                    // check that a frame is available
                     if (skeletonFrame != null && this.skeletonData != null)
                     {
-                        // get the skeletal information in this frame  
+                        // get the skeletal information in this frame
                         skeletonFrame.CopySkeletonDataTo(this.skeletonData);
                         Skeleton skeleton = GetPrimarySkeleton(this.skeletonData);
 
-                      
+
 
                         //call the function for pose
                         if (skeleton != null)
-                        {  
+                        {
                             Graphics jointg = panel1.CreateGraphics();
                             jointg.FillRectangle(new SolidBrush(Color.White), 0, 0, panel1.Width, panel1.Height);
                             DrawBonesAndJoints(skeleton, jointg);
                             this.ProcessPosePerforming(skeleton);
-                            
+
                         }
                     }
                 }
@@ -172,13 +172,13 @@ namespace Kinect_TetrisV2
                         if (skeleton.TrackingState == SkeletonTrackingState.Tracked)
                         {
                             //Console.WriteLine("KinectID: " + skeleton.TrackingId);
-                            //only deal with the movement data   
+                            //only deal with the movement data
                             //DrawTrackedSkeletonJoints(skeleton.Joints);
                         }
                         else if (skeleton.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
 
-                            //temDrawSkeletonPosition(skeleton.Position);  
+                            //temDrawSkeletonPosition(skeleton.Position);
                         }
                     }
                     else
@@ -206,7 +206,7 @@ namespace Kinect_TetrisV2
 
             if (skeletons != null)
             {
-                //Find the closest skeleton       
+                //Find the closest skeleton
                 for (int i = 0; i < skeletons.Length; i++)
                 {
                     if (skeletons[i].TrackingState == SkeletonTrackingState.Tracked)
@@ -413,7 +413,7 @@ namespace Kinect_TetrisV2
             switch (value)
             {
                 case UP:	//	up
-                    ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROATE);
+                    ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
                     break;
                 case LEFT:	//	left
                     ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
@@ -499,7 +499,7 @@ namespace Kinect_TetrisV2
         /// <returns>mapped point</returns>
         private Point SkeletonPointToScreen(SkeletonPoint skelpoint)
         {
-            // Convert point to depth space.  
+            // Convert point to depth space.
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
             DepthImagePoint depthPoint = this.kinect.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X/3 - 30, depthPoint.Y/3 - 20);
@@ -666,7 +666,7 @@ namespace Kinect_TetrisV2
                 switch (key)
                 {
                     case 38:	//	up
-                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROATE);
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
                         break;
                     case 37:	//	left
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
