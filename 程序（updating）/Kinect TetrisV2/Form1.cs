@@ -756,12 +756,26 @@ namespace Kinect_TetrisV2
         /// </summary>
         public void ReDrawNextShape()
         {
-            Graphics grNext = nextPanel.CreateGraphics();
-            grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel.Width, nextPanel.Height);
-            nextShape.Draw(grNext, nextPanel.Size);
+            bool rd = true;
+            if (rd == false)
+            {
+                Graphics grNext = nextPanel.CreateGraphics();
+                grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel.Width, nextPanel.Height);
+                nextShape.Draw(grNext, nextPanel.Size);
 
-            Graphics grMain = screenPanel.CreateGraphics();
-            mainBody.DrawNextShape(grMain);
+                Graphics grMain = screenPanel.CreateGraphics();
+                mainBody.DrawNextShape(grMain);
+            }
+            else
+            {
+                Graphics grNext = panel2.CreateGraphics();
+                grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, panel2.Width, panel2.Height);
+                nextShape.Draw(grNext, panel2.Size);
+
+                Graphics grMain = screenPanel.CreateGraphics();
+                mainBody.DrawNextShape(grMain);
+            }
+            
         }
 
         /// <summary>
