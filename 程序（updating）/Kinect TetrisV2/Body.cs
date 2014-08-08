@@ -171,8 +171,8 @@ namespace Kinect_TetrisV2
 
         /// <summary>
         /// 清行程序 把的填满的一行清除 首先判断是否存在一行中的空块
-        /// 存在的话则不能清除 反之 则清除 如果第i行清除 那么就把比i行少
-        /// 那些行自动沉下来一个
+        /// 存在的话则不能清除 反之 则清除 如果第i行清除 那么就把比i行大
+        /// 那些行自动浮下来一个
         /// </summary>
         /// <returns></returns>
         public int ClearLines()
@@ -198,11 +198,11 @@ namespace Kinect_TetrisV2
                         {
                             blockList.RemoveAt(n);
                         }
-                        //其他的比i行小的那些行则自动沉下来
-                        else if (((Block)(blockList[n])).Position.Y < i)
+                        //其他的比i行大的那些行则自动浮上来
+                        else if (((Block)(blockList[n])).Position.Y > i)
                         {
                             Point pt = ((Block)(blockList[n])).Position;
-                            //pt.Y++;
+                            pt.Y--;
                             ((Block)(blockList[n])).Position = pt;
                         }
                     }
