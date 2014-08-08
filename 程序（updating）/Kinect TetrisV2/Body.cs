@@ -51,6 +51,19 @@ namespace Kinect_TetrisV2
                 ((Block)(blockList[i])).Draw(g);
             }
 
+            int cellSize = 40;
+            int xCellCnt = 12;
+            int yCellCnt = 15;
+            Pen p = new Pen(Color.FromArgb(200,200,200), 1);
+            for (int y = 0; y < yCellCnt; ++y)
+            {
+                g.DrawLine(p, 0, y * cellSize, xCellCnt * cellSize, y * cellSize);
+            }
+
+            for (int x = 0; x < xCellCnt; ++x)
+            {
+                g.DrawLine(p, x * cellSize, 0, x * cellSize, yCellCnt * cellSize);
+            }
         }
 
         /// <summary>
