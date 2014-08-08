@@ -650,7 +650,6 @@ namespace Kinect_TetrisV2
             score = 0;
             speed = 0;
             lines = 0;
-            filledLines = 0;
 
             ChangeLines(0);
             timer.Interval = SpeedToTime(speed);
