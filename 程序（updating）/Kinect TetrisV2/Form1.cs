@@ -20,12 +20,12 @@ namespace Kinect_TetrisV2
     {
         private Random rndShape = new Random();//define a new random number
         private Shape nextShape;//next shape appear
-        private Shape nextShape2;//next shape appear
         private Body mainBody = new Body();
         private GAME_STATUS gameStatus;
         public int speed;
         private int score;
         private int lines;
+        private int panelSelection;
         private KinectSensor kinect = null;//Point to Kinect object
         private Skeleton[] skeletonData;   //save the skeleton data got from Kinect Sensor
         private Pose[] poseLibrary;//user-defined pose library
@@ -709,19 +709,11 @@ namespace Kinect_TetrisV2
             {
                 int indexShape = rndShape.Next(shapeCount);
                 nextShape = new Shape(indexShape);
-                int indexShape2 = rndShape.Next(shapeCount);
-                nextShape2 = new Shape(indexShape2);
             }
-            int rndSelection = rndShape.Next(2);
-            if (rndSelection == 1) {
-                bool ret = mainBody.SetCurrentShape(nextShape);
-            } else {
-                bool ret = mainBody.SetCurrentShape(nextShape2);
-            }
+            panelSelection = rndShape.Next(2);
+            bool ret = mainBody.SetCurrentShape(nextShape);
             int indNextShape = rndShape.Next(shapeCount);
-            int indNextShape2 = rndShape.Next(shapeCount);
             nextShape = new Shape(indNextShape);
-            nextShape2 = new Shape(indNextShape2);
             return ret;
         }
 
@@ -753,12 +745,14 @@ namespace Kinect_TetrisV2
         public void ReDrawNextShape()
         {
             Graphics grNext = nextPanel.CreateGraphics();
-            grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel.Width, nextPanel.Height);
-            nextShape.Draw(grNext, nextPanel.Size);
-
             Graphics grNext2 = nextPanel2.CreateGraphics();
+            grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel.Width, nextPanel.Height);
             grNext2.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel2.Width, nextPanel2.Height);
-            nextShape2.Draw(grNext2, nextPanel2.Size);
+            if (panelSelection == 1) {
+                nextShape.Draw(grNext, nextPanel.Size);
+            } else {
+                nextShape.Draw(grNext2, nextPanel2.Size);
+            }
         }
 
         /// <summary>
