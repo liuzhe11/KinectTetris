@@ -14,6 +14,7 @@ namespace Kinect_TetrisV2
         {
             maxWidth = 12;
             maxHeight = 15;
+            filledLines = 0;
         }
 
         public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROTATE = 4 };
@@ -22,6 +23,7 @@ namespace Kinect_TetrisV2
         private Shape nextShape;
         private int maxWidth;
         private int maxHeight;
+        private int filledLines;
 
         public bool SetNextShape(Shape s)
         {
@@ -137,7 +139,7 @@ namespace Kinect_TetrisV2
         public bool PositionHasBlock(Point pt)
         {
             if (pt.Y < 0) return false;
-            Rectangle rc = new Rectangle(0, 0, maxWidth, maxHeight);
+            Rectangle rc = new Rectangle(0, 0, maxWidth, maxHeight - filledLines);
             if (!rc.Contains(pt))
             {
                 return true;
@@ -209,6 +211,7 @@ namespace Kinect_TetrisV2
                     count++;
                 }
             }
+            filledLines += count;
             return count;
         }
 
