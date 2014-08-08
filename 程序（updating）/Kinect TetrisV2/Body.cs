@@ -20,22 +20,22 @@ namespace Kinect_TetrisV2
         public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROTATE = 4 };
 
         private ArrayList blockList = new ArrayList();
-        private Shape nextShape;
+        private Shape currentShape;
         private int maxWidth;
         private int maxHeight;
         private int filledLines;
 
-        public bool SetNextShape(Shape s)
+        public bool SetCurrentShape(Shape s)
         {
-            nextShape = s;
-            nextShape.Position = new Point(4, 0);
+            currentShape = s;
+            currentShape.Position = new Point(4, 0);
             bool ret = false;
             //*
-            while (!ShapeCanPlace(nextShape))
+            while (!ShapeCanPlace(currentShape))
             {
-                Point pt = nextShape.Position;
+                Point pt = currentShape.Position;
                 pt.Y--;
-                nextShape.Position = pt;
+                currentShape.Position = pt;
                 ret = true;
             }
             //*/
@@ -44,7 +44,7 @@ namespace Kinect_TetrisV2
 
         public void Draw(Graphics g)
         {
-            DrawNextShape(g);
+            DrawCurrentShape(g);
 
             for (int i = 0; i < blockList.Count; i++)
             {
@@ -75,8 +75,8 @@ namespace Kinect_TetrisV2
         /// <returns></returns>
         public bool MoveShape(Graphics g, MOVE_TYPE m)
         {
-            Shape s = new Shape(nextShape.IndexDef);
-            s.Copy(nextShape);
+            Shape s = new Shape(currentShape.IndexDef);
+            s.Copy(currentShape);
             Point pt = s.Position;
             g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 50*maxWidth, 40*filledLines);
             switch (m)
@@ -89,11 +89,11 @@ namespace Kinect_TetrisV2
                             s.Position = pt;
                         }
 
-                        nextShape.Draw(g, true);
+                        currentShape.Draw(g, true);
                         pt.Y--;
                         s.Position = pt;
-                        nextShape.Copy(s);
-                        nextShape.Draw(g);
+                        currentShape.Copy(s);
+                        currentShape.Draw(g);
                         PlaceShape();
                         return true;
                         //break;
@@ -117,9 +117,9 @@ namespace Kinect_TetrisV2
             s.Position = pt;
             if (ShapeCanPlace(s))
             {
-                nextShape.Draw(g, true);
-                nextShape.Copy(s);
-                nextShape.Draw(g);
+                currentShape.Draw(g, true);
+                currentShape.Copy(s);
+                currentShape.Draw(g);
             }
             else
             {
@@ -170,13 +170,13 @@ namespace Kinect_TetrisV2
 
         public void PlaceShape()
         {
-            for (int i = 0; i < nextShape.BlockCnt; i++)
+            for (int i = 0; i < currentShape.BlockCnt; i++)
             {
-                Point pt = nextShape.Position;
-                Point ptOff = nextShape.GetBlock(i).Position;
+                Point pt = currentShape.Position;
+                Point ptOff = currentShape.GetBlock(i).Position;
                 pt.Offset(ptOff.X, ptOff.Y);
-                nextShape.GetBlock(i).Position = pt;
-                blockList.Add(nextShape.GetBlock(i));
+                currentShape.GetBlock(i).Position = pt;
+                blockList.Add(currentShape.GetBlock(i));
             }
         }
 
@@ -231,12 +231,12 @@ namespace Kinect_TetrisV2
         }
 
         /// <summary>
-        /// 画下次出现的方块的方法
+        /// 画当前出现的方块的方法
         /// </summary>
         /// <param name="g"></param>
-        public void DrawNextShape(Graphics g)
+        public void DrawCurrentShape(Graphics g)
         {
-            nextShape.Draw(g);
+            currentShape.Draw(g);
         }
 
 
