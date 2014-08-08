@@ -77,6 +77,7 @@ namespace Kinect_TetrisV2
             Shape s = new Shape(nextShape.IndexDef);
             s.Copy(nextShape);
             Point pt = s.Position;
+            g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 50*maxWidth, 40*filledLines);
             switch (m)
             {
                 case MOVE_TYPE.MOVE_FALL:
