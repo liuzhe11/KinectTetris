@@ -109,12 +109,12 @@ namespace Kinect_TetrisV2
             Pen p = new Pen(Color.FromArgb(200,200,200), 1);
             for (int y = 0; y < yCellCnt; ++y)
             {
-                g.DrawLine(p, 409, y * cellSize, xCellCnt * cellSize, y * cellSize);
+                grMain.DrawLine(p, 0, y * cellSize, xCellCnt * cellSize, y * cellSize);
             }
 
             for (int x = 0; x < xCellCnt; ++x)
             {
-                g.DrawLine(p, x * cellSize, 993, x * cellSize, yCellCnt * cellSize);
+                grMain.DrawLine(p, x * cellSize, 0, x * cellSize, yCellCnt * cellSize);
             }
         }
 
