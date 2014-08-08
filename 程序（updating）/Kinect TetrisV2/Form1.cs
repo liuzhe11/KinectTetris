@@ -198,7 +198,7 @@ namespace Kinect_TetrisV2
             {
                 //this.label1.Text = "We cannot find any Kinect connected，Please check the USB or the power";
             }
-            
+
         }
 
 
@@ -650,6 +650,7 @@ namespace Kinect_TetrisV2
             score = 0;
             speed = 0;
             lines = 0;
+            filledLines = 0;
 
             ChangeLines(0);
             timer.Interval = SpeedToTime(speed);
@@ -775,7 +776,7 @@ namespace Kinect_TetrisV2
                 Graphics grMain = screenPanel.CreateGraphics();
                 mainBody.DrawNextShape(grMain);
             }
-            
+
         }
 
         /// <summary>
@@ -840,8 +841,6 @@ namespace Kinect_TetrisV2
             //speed++;
             timer.Interval = SpeedToTime(speed);
             //}
-
-            lines += count;
 
             scoreLabel.Text = score.ToString();
             //speedLabel.Text = speed.ToString();
