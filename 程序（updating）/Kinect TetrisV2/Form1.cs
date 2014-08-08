@@ -20,6 +20,7 @@ namespace Kinect_TetrisV2
     {
         private Random rndShape = new Random();//define a new random number
         private Shape nextShape;//next shape appear
+        private Shape nextShape2;//next shape appear
         private Body mainBody = new Body();
         private GAME_STATUS gameStatus;
         public int speed;
@@ -708,11 +709,19 @@ namespace Kinect_TetrisV2
             {
                 int indexShape = rndShape.Next(shapeCount);
                 nextShape = new Shape(indexShape);
+                int indexShape2 = rndShape.Next(shapeCount);
+                nextShape2 = new Shape(indexShape2);
             }
-
-            bool ret = mainBody.SetNextShape(nextShape);
+            int rndSelection = rndShape.Next(2);
+            if (rndSelection == 1) {
+                bool ret = mainBody.SetCurrentShape(nextShape);
+            } else {
+                bool ret = mainBody.SetCurrentShape(nextShape2);
+            }
             int indNextShape = rndShape.Next(shapeCount);
+            int indNextShape2 = rndShape.Next(shapeCount);
             nextShape = new Shape(indNextShape);
+            nextShape2 = new Shape(indNextShape2);
             return ret;
         }
 
@@ -743,26 +752,13 @@ namespace Kinect_TetrisV2
         /// </summary>
         public void ReDrawNextShape()
         {
-            bool rd = true;
-            if (rd == false)
-            {
-                Graphics grNext = nextPanel.CreateGraphics();
-                grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel.Width, nextPanel.Height);
-                nextShape.Draw(grNext, nextPanel.Size);
+            Graphics grNext = nextPanel.CreateGraphics();
+            grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel.Width, nextPanel.Height);
+            nextShape.Draw(grNext, nextPanel.Size);
 
-                Graphics grMain = screenPanel.CreateGraphics();
-                mainBody.DrawNextShape(grMain);
-            }
-            else
-            {
-                Graphics grNext = panel2.CreateGraphics();
-                grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, panel2.Width, panel2.Height);
-                nextShape.Draw(grNext, panel2.Size);
-
-                Graphics grMain = screenPanel.CreateGraphics();
-                mainBody.DrawNextShape(grMain);
-            }
-
+            Graphics grNext2 = nextPanel2.CreateGraphics();
+            grNext2.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel2.Width, nextPanel2.Height);
+            nextShape2.Draw(grNext2, nextPanel2.Size);
         }
 
         /// <summary>
