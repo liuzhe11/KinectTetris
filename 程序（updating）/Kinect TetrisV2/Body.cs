@@ -64,6 +64,7 @@ namespace Kinect_TetrisV2
             {
                 g.DrawLine(p, x * cellSize, 0, x * cellSize, yCellCnt * cellSize);
             }
+            g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 50*maxWidth, 40*filledLines);
         }
 
         /// <summary>
