@@ -315,8 +315,6 @@ namespace Kinect_TetrisV2
             this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 90, 30);
             this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 90, 30);
 
-
-            /*
             //Pose 2 - Both Hands Cross
             this.poseLibrary[1] = new Pose();
             this.poseLibrary[1].Title = "把手交叉（Hands Cross）";
@@ -325,7 +323,6 @@ namespace Kinect_TetrisV2
             this.poseLibrary[1].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 0, 8);
             this.poseLibrary[1].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 285, 8);
             this.poseLibrary[1].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 180, 8);
-            */
 
             //Pose 3 - Left Up and Right Down
             this.poseLibrary[2] = new Pose();
