@@ -169,6 +169,7 @@ namespace Kinect_TetrisV2
         public void Reset()
         {
             blockList.Clear();
+            filledLines = 0;
         }
 
         /// <summary>
