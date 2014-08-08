@@ -255,7 +255,6 @@
             this.Controls.Add(this.nextPanel);
             this.Controls.Add(this.screenPanel);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximizeBox = false;
             this.Menu = this.menuStrip;
             this.Name = "Form1";
             this.Text = "KinectTetris";
