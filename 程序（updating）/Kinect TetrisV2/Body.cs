@@ -181,7 +181,7 @@ namespace Kinect_TetrisV2
         public int ClearLines()
         {
             int count = 0;
-            for (int i = 0; i < maxHeight; i++)
+            for (int i = 0; i < maxHeight - filledLines; i++)
             {
                 bool clear = true;
                 for (int j = 0; j < maxWidth; j++)
