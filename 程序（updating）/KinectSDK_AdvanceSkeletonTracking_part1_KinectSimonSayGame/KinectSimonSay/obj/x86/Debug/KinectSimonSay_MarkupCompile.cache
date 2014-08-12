@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Test\KinectDemo\KinectSamonSay\obj\x86\Debug\
+F:\Git Workspace\KinectTetris\程序（updating）\KinectSDK_AdvanceSkeletonTracking_part1_KinectSimonSayGame\KinectSimonSay\obj\x86\Debug\
 KinectSimonSay
 none
 false
 DEBUG;TRACE
-D:\Test\KinectDemo\KinectSamonSay\App.xaml
+F:\Git Workspace\KinectTetris\程序（updating）\KinectSDK_AdvanceSkeletonTracking_part1_KinectSimonSayGame\KinectSimonSay\App.xaml
 21728691015
 
 6-713770310
-131082686962
+13605257624
 MainWindow.xaml;SkeletonViewer.xaml;
 
 False
