@@ -211,7 +211,36 @@ namespace Kinect_TetrisV2
 
         }
 
-       
+        private void TrackHand(Joint hand, int handflag)
+        {
+            // hand: 0 for left, 1 for right
+            if (handflag == 0)
+            {
+                if (hand.TrackingState == JointTrackingState.NotTracked)
+                {
+                    this.pictureBox2.Visible = false;
+                }
+                else
+                {
+                    this.pictureBox2.Visible = true;
+                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point((int) this.pictureBox2.Width / 2.0, (int) this.pictureBox2.Height / 2.0));
+                    this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
+                }
+            }
+            else
+            {
+                if (hand.TrackingState == JointTrackingState.NotTracked)
+                {
+                    this.pictureBox3.Visible = false;
+                }
+                else
+                {
+                    this.pictureBox3.Visible = true;
+                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox3.Width / 2.0, this.pictureBox3.Height / 2.0));
+                    this.pictureBox3.Location = new Point(jointPoint.X, jointPoint.Y);
+                }
+            }
+        }
         /// <summary>
         /// get the nearest skeleton object
         /// </summary>
@@ -896,5 +925,6 @@ namespace Kinect_TetrisV2
 
             }
         }
+
     }
 }
