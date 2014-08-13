@@ -35,6 +35,11 @@ namespace Kinect_TetrisV2
         private const int DOWN = 2;
         private const int LEFT = 3;
         private const int RIGHT = 4;
+        private int count;
+        private int lastPose;
+        private const int FPS = 30;
+        private const int threshold = 1; // 3sec
+
 
         enum GAME_STATUS { GAME_STOP, GAME_RUN, GAME_OVER };
 
@@ -106,6 +111,9 @@ namespace Kinect_TetrisV2
         /// </summary>
         private void StartKinectST()
         {
+            //initialize Kinect
+            count = 0;
+            lastPose = 0;
             // Get first Kinect Sensor
             kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
             //Notice: this judgement doesn't work for MS
@@ -416,27 +424,37 @@ namespace Kinect_TetrisV2
                 Console.WriteLine("Right hand up, right");	//	right
                 value = RIGHT;
             }
-            switch (value)
+            if (value == lastPose && count < threshold * FPS)
             {
-                case UP:	//	up
-                    ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
-                    break;
-                case LEFT:	//	left
-                    ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
-                    break;
-                case RIGHT:	//	right
-                    ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_RIGHT);
-                    break;
-                case DOWN:	//	fall down
-                    ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_FALL);
-                    break;
-                default:
-                    ret = false;
-                    break;
+                count++;
             }
-            if (ret && value == DOWN)
+            else
             {
-                DisposeShapeDown();
+                count = 0;
+                lastPose = value;
+
+                switch (value)
+                {
+                    case UP:	//	up
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
+                        break;
+                    case LEFT:	//	left
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
+                        break;
+                    case RIGHT:	//	right
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_RIGHT);
+                        break;
+                    case DOWN:	//	fall down
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_FALL);
+                        break;
+                    default:
+                        ret = false;
+                        break;
+                }
+                if (ret && value == DOWN)
+                {
+                    DisposeShapeDown();
+                }
             }
         }
 
