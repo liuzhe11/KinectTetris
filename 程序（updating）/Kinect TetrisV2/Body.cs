@@ -64,7 +64,23 @@ namespace Kinect_TetrisV2
             {
                 g.DrawLine(p, x * cellSize, 0, x * cellSize, yCellCnt * cellSize);
             }
-            g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 50*maxWidth, 40*filledLines);
+            //g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 40*maxWidth, 40*filledLines);
+
+            // Create image.
+            Image newImage = Image.FromFile("sample.jpg");
+
+            // Create parallelogram for drawing image.
+            Point ulCorner = new Point(0, 40*(maxHeight-filledLines));
+            Point urCorner = new Point(40*maxWidth, 40*(maxHeight-filledLines));
+            Point llCorner = new Point(0, 40*maxHeight);
+            Point[] destPara = {ulCorner, urCorner, llCorner};
+
+            // Create rectangle for source image.
+            Rectangle srcRect = new Rectangle(0, 900-filledLines/maxWidth*599, 599, 900);
+            GraphicsUnit units = GraphicsUnit.Pixel;
+
+            // Draw image to screen.
+            g.DrawImage(newImage, destPara, srcRect, units);
         }
 
         /// <summary>
@@ -78,7 +94,23 @@ namespace Kinect_TetrisV2
             Shape s = new Shape(currentShape.IndexDef);
             s.Copy(currentShape);
             Point pt = s.Position;
-            g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 50*maxWidth, 40*filledLines);
+            //g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 40*maxWidth, 40*filledLines);
+
+            // Create image.
+            Image newImage = Image.FromFile("sample.jpg");
+
+            // Create parallelogram for drawing image.
+            Point ulCorner = new Point(0, 40*(maxHeight-filledLines));
+            Point urCorner = new Point(40*maxWidth, 40*(maxHeight-filledLines));
+            Point llCorner = new Point(0, 40*maxHeight);
+            Point[] destPara = {ulCorner, urCorner, llCorner};
+
+            // Create rectangle for source image.
+            Rectangle srcRect = new Rectangle(0, 900-filledLines/maxWidth*599, 599, 900);
+            GraphicsUnit units = GraphicsUnit.Pixel;
+
+            // Draw image to screen.
+            g.DrawImage(newImage, destPara, srcRect, units);
             switch (m)
             {
                 case MOVE_TYPE.MOVE_FALL:

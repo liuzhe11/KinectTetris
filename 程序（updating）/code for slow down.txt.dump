@@ -1,0 +1,14 @@
+我看了一下，想要把手势操作减慢的方法应该和MapSkeletonPointToDepthPoint关系不大，因为它的两个参数都只是skeletonPoint和DepthImageFormat，也就是把深度数据和图形数据匹配。
+394-418：识别用户手势是否为定义手势
+419-440： 定义各手势对应的操作
+Body.cs：
+20：定义move函数
+84：设置move函数显示
+
+应该改正的思路：
+识别手势的频率：
+	gesture=gesture[1];
+	record=gesture[1];
+	time on;
+	while( gesture = record && time <3s)
+	stop;
