@@ -67,7 +67,7 @@ namespace Kinect_TetrisV2
             //g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 40*maxWidth, 40*filledLines);
 
             // Create image.
-            Image newImage = Image.FromFile("sample.jpg");
+            Image newImage =Properties.Resources.sample;
 
             // Create parallelogram for drawing image.
             Point ulCorner = new Point(0, 40*(maxHeight-filledLines));
@@ -76,7 +76,7 @@ namespace Kinect_TetrisV2
             Point[] destPara = {ulCorner, urCorner, llCorner};
 
             // Create rectangle for source image.
-            Rectangle srcRect = new Rectangle(0, 900-filledLines/maxWidth*599, 599, 900);
+            Rectangle srcRect = new Rectangle(0, 900 - filledLines*599 / maxWidth, 599, filledLines*599 / maxWidth);
             GraphicsUnit units = GraphicsUnit.Pixel;
 
             // Draw image to screen.
@@ -97,7 +97,7 @@ namespace Kinect_TetrisV2
             //g.FillRectangle(new SolidBrush(Color.FromArgb(200,200,200)), 0, 40*(maxHeight-filledLines), 40*maxWidth, 40*filledLines);
 
             // Create image.
-            Image newImage = Image.FromFile("sample.jpg");
+            Image newImage = Properties.Resources.sample;
 
             // Create parallelogram for drawing image.
             Point ulCorner = new Point(0, 40*(maxHeight-filledLines));
@@ -106,7 +106,7 @@ namespace Kinect_TetrisV2
             Point[] destPara = {ulCorner, urCorner, llCorner};
 
             // Create rectangle for source image.
-            Rectangle srcRect = new Rectangle(0, 900-filledLines/maxWidth*599, 599, 900);
+            Rectangle srcRect = new Rectangle(0, 900 - filledLines*599 / maxWidth, 599, filledLines*599 / maxWidth);
             GraphicsUnit units = GraphicsUnit.Pixel;
 
             // Draw image to screen.
