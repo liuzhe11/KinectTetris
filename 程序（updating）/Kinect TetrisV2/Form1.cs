@@ -223,7 +223,7 @@ namespace Kinect_TetrisV2
                 else
                 {
                     this.pictureBox2.Visible = true;
-                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point((int) this.pictureBox2.Width / 2.0, (int) this.pictureBox2.Height / 2.0));
+                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2.0, this.pictureBox2.Height / 2.0));
                     this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
                 }
             }
