@@ -63,9 +63,9 @@ namespace Kinect_TetrisV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap left_hand {
+        internal static System.Drawing.Bitmap LeftHand {
             get {
-                object obj = ResourceManager.GetObject("left hand", resourceCulture);
+                object obj = ResourceManager.GetObject("LeftHand", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,39 +73,9 @@ namespace Kinect_TetrisV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap left_hand_meitu_1 {
+        internal static System.Drawing.Bitmap RightHand {
             get {
-                object obj = ResourceManager.GetObject("left hand_meitu_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap left_hand_meitu_11 {
-            get {
-                object obj = ResourceManager.GetObject("left hand_meitu_11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap right_hand {
-            get {
-                object obj = ResourceManager.GetObject("right hand", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap right_hand_meitu_2 {
-            get {
-                object obj = ResourceManager.GetObject("right hand_meitu_2", resourceCulture);
+                object obj = ResourceManager.GetObject("RightHand", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

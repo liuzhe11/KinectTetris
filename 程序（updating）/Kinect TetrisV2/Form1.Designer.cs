@@ -234,7 +234,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::Kinect_TetrisV2.Properties.Resources.left_hand_meitu_11;
+            this.pictureBox2.Image = global::Kinect_TetrisV2.Properties.Resources.LeftHand;
             this.pictureBox2.Location = new System.Drawing.Point(295, 97);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(100, 102);
@@ -252,7 +252,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::Kinect_TetrisV2.Properties.Resources.right_hand_meitu_2;
+            this.pictureBox3.Image = global::Kinect_TetrisV2.Properties.Resources.RightHand;
             this.pictureBox3.Location = new System.Drawing.Point(896, 97);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(100, 100);
