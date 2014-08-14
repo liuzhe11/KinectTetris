@@ -177,7 +177,7 @@ namespace Kinect_TetrisV2
                             DrawBonesAndJoints(skeleton, jointg);
                             this.ProcessPosePerforming(skeleton);
                             TrackHand(skeleton.Joints[JointType.HandLeft], 0);
-                            TrackHand(skeleton.Joints[JointType.HandLeft], 1);
+                            TrackHand(skeleton.Joints[JointType.HandRight], 1);
                         }
                     }
                 }
