@@ -289,8 +289,9 @@ namespace Kinect_TetrisV2
             //get coordinate of every dot in the main UI space
             //DepthImagePoint point = kinectDevice.MapSkeletonPointToDepth(joint.Position, kinectDevice.DepthStream.Format);
             DepthImagePoint point = kinectDevice.CoordinateMapper.MapSkeletonPointToDepthPoint(joint.Position, kinectDevice.DepthStream.Format);
-            point.X = (int)(point.X - offset.X);
-            point.Y = (int)(point.Y  - offset.Y);
+            point.X = (int)((point.X - offset.X)*this.Size.Width/kinectDevice.DepthStream.FrameWidth);
+            point.Y = (int)((point.Y  - offset.Y)*this.Size.Height/kinectDevice.DepthStream.FrameHeight);
+
 
             return new Point(point.X, point.Y);
         }
