@@ -1,0 +1,41 @@
+lockFlag // 是否锁定
+startFalling // 是否开始下落
+TrackHand(hand, handFlag) {
+    if (hand == 0) {
+        // left hand
+        if (hand.TrackingState == JointTrackingState.NotTracked || startFalling == 1)
+        { // 未检测到手或下落过程中不显示手
+            this.pictureBox2.Visible = false;
+        }
+        else
+        {
+            this.pictureBox2.Visible = true;
+            Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
+            this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
+
+            if (panelSelection == handflag && lockFlag == 0)
+            {  // 当前未锁定，nextPanel不随手移动
+                if (within(jointPoint, nextPanel2))
+                {
+                    count2++;
+                }
+                else count2 = 0;
+                if (count2 > threshold2*FPS)
+                {
+                    lockFlag = 1;
+                    count2 = 0;
+                }
+            }
+            if (panelSelection == handflag && lockFlag == 1)
+            {  // 锁定
+                this.nextPanel2.Location = new Point(jointPoint.X, jointPoint.Y); // nextPanel跟手移动
+                if (within(jointPoint, screenPanel))
+                {  // 移动到screenPanel范围内开始下落
+                    startFalling = 1;
+                }
+            }
+        }
+    } else { // right hand
+        ...
+    }
+}

@@ -38,12 +38,13 @@ namespace Kinect_TetrisV2
         private const int RIGHT = 4;
         private int count;
         private int lastPose;
+        private int startFalling;
         private const int FPS = 30;
         private const int threshold = 1; // 1sec
         private int count2;
         private const int threshold2 = 3;
         private Point HandPos;
-        private int lockflag;
+        private int lockFlag;
 
         enum GAME_STATUS { GAME_STOP, GAME_RUN, GAME_OVER };
 
@@ -120,7 +121,8 @@ namespace Kinect_TetrisV2
             lastPose = 0;
             count2 = 0;
             HandPos = new Point(0,0);
-            lockflag = 0;
+            lockFlag = 0;
+            startFalling = 0;
             // Get first Kinect Sensor
             kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
             //Notice: this judgement doesn't work for MS
@@ -223,12 +225,12 @@ namespace Kinect_TetrisV2
 
         }
 
-        private void TrackHand(Joint hand, int handflag)
+        private void TrackHand(Joint hand, int handFlag)
         {
             // hand: 0 for left, 1 for right
-            if (handflag == 0 )
+            if (handFlag == 0)
             {
-                if (hand.TrackingState == JointTrackingState.NotTracked)
+                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling == 1)
                 {
                     this.pictureBox2.Visible = false;
                 }
@@ -238,7 +240,7 @@ namespace Kinect_TetrisV2
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
                     this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
 
-                    if (panelSelection == handflag && lockflag == 0)
+                    if (panelSelection == handFlag && lockFlag == 0)
                     {
                         if(within(jointPoint, nextPanel2))
                         {
@@ -247,16 +249,16 @@ namespace Kinect_TetrisV2
                         else count2 = 0;
                         if(count2 > threshold2*FPS)
                         {
-                            lockflag = 1;
-                            count2=0;
+                            lockFlag = 1;
+                            count2 = 0;
                         }
                     }
-                    if (panelSelection == handflag && lockflag == 1)
+                    if (panelSelection == handFlag && lockFlag == 1)
                     {
                         this.nextPanel2.Location = new Point(jointPoint.X, jointPoint.Y);
                         if (within(jointPoint, screenPanel))
                         {
-                            开始下落
+                            startFalling = 1;
                         }
                     }
                 }
@@ -264,7 +266,7 @@ namespace Kinect_TetrisV2
             }
             else
             {
-                if (hand.TrackingState == JointTrackingState.NotTracked)
+                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling == 1)
                 {
                     this.pictureBox3.Visible = false;
                 }
@@ -274,7 +276,7 @@ namespace Kinect_TetrisV2
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox3.Width / 2, this.pictureBox3.Height / 2));
                     this.pictureBox3.Location = new Point(jointPoint.X, jointPoint.Y);
 
-                    if (panelSelection == handflag)
+                    if (panelSelection == handFlag && lockFlag == 0)
                     {
                         if (within(jointPoint, nextPanel))
                         {
@@ -284,6 +286,14 @@ namespace Kinect_TetrisV2
                         if (count2 > threshold2 * FPS)
                         {
                             count2 = 0;
+                        }
+                    }
+                    if (panelSelection == handFlag && lockFlag == 1)
+                    {
+                        this.nextPanel.Location = new Point(jointPoint.X, jointPoint.Y);
+                        if (within(jointPoint, screenPanel))
+                        {
+                            startFalling = 1;
                         }
                     }
                 }
@@ -696,7 +706,7 @@ namespace Kinect_TetrisV2
         /// <param name="e"></param>
         private void OnTimer(object sender, System.EventArgs e)
         {
-            if (gameStatus == GAME_STATUS.GAME_RUN)
+            if (gameStatus == GAME_STATUS.GAME_RUN && startFalling)
             {
                 Graphics grMain = screenPanel.CreateGraphics();
                 if (mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_DOWN))
@@ -845,6 +855,7 @@ namespace Kinect_TetrisV2
             {
                 ReDrawNextShape();
             }
+            startFalling = 0;
         }
 
         /// <summary>
