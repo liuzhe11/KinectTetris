@@ -258,6 +258,8 @@ namespace Kinect_TetrisV2
                         this.nextPanel2.Location = new Point(jointPoint.X, jointPoint.Y);
                         if (within(jointPoint, screenPanel))
                         {
+                            lockFlag = 0;
+                            HandPos = newPoint(0,0);
                             startFalling = true;
 
                             if (GetNextShape())
@@ -299,6 +301,8 @@ namespace Kinect_TetrisV2
                         this.nextPanel.Location = new Point(jointPoint.X, jointPoint.Y);
                         if (within(jointPoint, screenPanel))
                         {
+                            lockFlag = 0;
+                            HandPos = newPoint(0,0);
                             startFalling = true;
 
                             if (GetNextShape())
