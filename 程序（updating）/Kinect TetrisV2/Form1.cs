@@ -259,6 +259,11 @@ namespace Kinect_TetrisV2
                         if (within(jointPoint, screenPanel))
                         {
                             startFalling = true;
+
+                            if (GetNextShape())
+                            {
+                                GameOver();
+                            }
                             this.nextPanel2.Location = new System.Drawing.Point(81, 32);
                         }
                     }
@@ -295,6 +300,11 @@ namespace Kinect_TetrisV2
                         if (within(jointPoint, screenPanel))
                         {
                             startFalling = true;
+
+                            if (GetNextShape())
+                            {
+                                GameOver();
+                            }
                             this.nextPanel.Location = new System.Drawing.Point(993, 32);
                         }
                     }
@@ -766,7 +776,8 @@ namespace Kinect_TetrisV2
             stopMenu.Enabled = true;
             gameStatus = GAME_STATUS.GAME_RUN;
             mainBody.Reset();
-            GetNextShape(true);
+            int indexShape = rndShape.Next(7);
+            nextShape = new Shape(indexShape);
             DrawScreen();
         }
 
@@ -825,11 +836,6 @@ namespace Kinect_TetrisV2
         public bool GetNextShape(bool initGame)
         {
             int shapeCount = 7;
-            if (initGame)
-            {
-                int indexShape = rndShape.Next(shapeCount);
-                nextShape = new Shape(indexShape);
-            }
             panelSelection = rndShape.Next(2);
             bool ret = mainBody.SetCurrentShape(nextShape);
             int indNextShape = rndShape.Next(shapeCount);
@@ -843,12 +849,8 @@ namespace Kinect_TetrisV2
         public void DisposeShapeDown()
         {
             int count = mainBody.ClearLines();
-            if (GetNextShape())
-            {
-                GameOver();
-            }
-
             startFalling = false;
+
             if (count > 0)
             {
                 ChangeLines(count);
