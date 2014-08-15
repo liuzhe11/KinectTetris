@@ -39,8 +39,11 @@ namespace Kinect_TetrisV2
         private int count;
         private int lastPose;
         private const int FPS = 30;
-        private const int threshold = 1; // 3sec
-
+        private const int threshold = 1; // 1sec
+        private int count2;
+        private const int threshold2 = 3;
+        private Point HandPos;
+        private int lockflag;
 
         enum GAME_STATUS { GAME_STOP, GAME_RUN, GAME_OVER };
 
@@ -115,6 +118,9 @@ namespace Kinect_TetrisV2
             //initialize Kinect
             count = 0;
             lastPose = 0;
+            count2 = 0;
+            HandPos = new Point(0,0);
+            lockflag = 0;
             // Get first Kinect Sensor
             kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
             //Notice: this judgement doesn't work for MS
@@ -141,6 +147,11 @@ namespace Kinect_TetrisV2
             {
                 //this.label1.Text = "We cannot find any Kinect connected，Please check the USB or the power";
             }
+        }
+
+        private Point Point(int p1, int p2)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -215,7 +226,7 @@ namespace Kinect_TetrisV2
         private void TrackHand(Joint hand, int handflag)
         {
             // hand: 0 for left, 1 for right
-            if (handflag == 0)
+            if (handflag == 0 )
             {
                 if (hand.TrackingState == JointTrackingState.NotTracked)
                 {
@@ -226,7 +237,30 @@ namespace Kinect_TetrisV2
                     this.pictureBox2.Visible = true;
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
                     this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
+
+                    if (panelSelection == handflag && lockflag == 0)
+                    {
+                        if(within(jointPoint, nextPanel2))
+                        {
+                            count2++;
+                        }
+                        else count2 = 0;
+                        if(count2 > threshold2*FPS)
+                        {
+                            lockflag = 1;
+                            count2=0;
+                        }
+                    }
+                    if (panelSelection == handflag && lockflag == 1)
+                    {
+                        this.nextPanel2.Location = new Point(jointPoint.X, jointPoint.Y);
+                        if (within(jointPoint, screenPanel))
+                        {
+                            开始下落
+                        }
+                    }
                 }
+
             }
             else
             {
@@ -239,9 +273,36 @@ namespace Kinect_TetrisV2
                     this.pictureBox3.Visible = true;
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox3.Width / 2, this.pictureBox3.Height / 2));
                     this.pictureBox3.Location = new Point(jointPoint.X, jointPoint.Y);
+
+                    if (panelSelection == handflag)
+                    {
+                        if (within(jointPoint, nextPanel))
+                        {
+                            count2++;
+                        }
+                        else count2 = 0;
+                        if (count2 > threshold2 * FPS)
+                        {
+                            count2 = 0;
+                        }
+                    }
                 }
             }
         }
+
+        private bool within(Point Point, Panel Panel)
+        {
+            if (Point.X > Panel.Location.X &&
+               Point.X < Panel.Location.X + Panel.Width &&
+               Point.Y > Panel.Location.Y &&
+               Point.Y < Panel.Location.Y + Panel.Height)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
         /// <summary>
         /// get the nearest skeleton object
         /// </summary>
@@ -284,7 +345,7 @@ namespace Kinect_TetrisV2
         /// <param name="containerSize"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        private static Point GetJointPoint(KinectSensor kinectDevice, Joint joint, Point offset)
+        private Point GetJointPoint(KinectSensor kinectDevice, Joint joint, Point offset)
         {
             //get coordinate of every dot in the main UI space
             //DepthImagePoint point = kinectDevice.MapSkeletonPointToDepth(joint.Position, kinectDevice.DepthStream.Format);
@@ -456,7 +517,7 @@ namespace Kinect_TetrisV2
                 Console.WriteLine("Right hand up, right");	//	right
                 value = RIGHT;
             }
-            if (value == lastPose && count < threshold * FPS)
+            if (value == lastPose && count < threshold2 * FPS)
             {
                 count++;
             }
