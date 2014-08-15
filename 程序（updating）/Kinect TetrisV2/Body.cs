@@ -42,9 +42,11 @@ namespace Kinect_TetrisV2
             return ret;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, bool drawCurrent)
         {
-            DrawCurrentShape(g);
+            if (drawCurrent) {
+                DrawCurrentShape(g);
+            }
 
             for (int i = 0; i < blockList.Count; i++)
             {

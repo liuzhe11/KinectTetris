@@ -38,7 +38,7 @@ namespace Kinect_TetrisV2
         private const int RIGHT = 4;
         private int count;
         private int lastPose;
-        private int startFalling;
+        private bool startFalling;
         private const int FPS = 30;
         private const int threshold = 1; // 1sec
         private int count2;
@@ -122,7 +122,7 @@ namespace Kinect_TetrisV2
             count2 = 0;
             HandPos = new Point(0,0);
             lockFlag = 0;
-            startFalling = 0;
+            startFalling = false;
             // Get first Kinect Sensor
             kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
             //Notice: this judgement doesn't work for MS
@@ -230,7 +230,7 @@ namespace Kinect_TetrisV2
             // hand: 0 for left, 1 for right
             if (handFlag == 0)
             {
-                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling == 1)
+                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling)
                 {
                     this.pictureBox2.Visible = false;
                 }
@@ -258,7 +258,7 @@ namespace Kinect_TetrisV2
                         this.nextPanel2.Location = new Point(jointPoint.X, jointPoint.Y);
                         if (within(jointPoint, screenPanel))
                         {
-                            startFalling = 1;
+                            startFalling = true;
                         }
                     }
                 }
@@ -266,7 +266,7 @@ namespace Kinect_TetrisV2
             }
             else
             {
-                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling == 1)
+                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling)
                 {
                     this.pictureBox3.Visible = false;
                 }
@@ -293,7 +293,7 @@ namespace Kinect_TetrisV2
                         this.nextPanel.Location = new Point(jointPoint.X, jointPoint.Y);
                         if (within(jointPoint, screenPanel))
                         {
-                            startFalling = 1;
+                            startFalling = true;
                         }
                     }
                 }
@@ -681,7 +681,7 @@ namespace Kinect_TetrisV2
 
                 Graphics grMain = screenPanel.CreateGraphics();
                 grMain.FillRectangle(new SolidBrush(Color.White), 0, 0, screenPanel.Width, screenPanel.Height);
-                mainBody.Draw(grMain);
+                mainBody.Draw(grMain, startFalling);
             }
             if (gameStatus == GAME_STATUS.GAME_STOP || gameStatus == GAME_STATUS.GAME_OVER)
             {
@@ -846,6 +846,7 @@ namespace Kinect_TetrisV2
                 GameOver();
             }
 
+            startFalling = false;
             if (count > 0)
             {
                 ChangeLines(count);
@@ -855,7 +856,6 @@ namespace Kinect_TetrisV2
             {
                 ReDrawNextShape();
             }
-            startFalling = 0;
         }
 
         /// <summary>
