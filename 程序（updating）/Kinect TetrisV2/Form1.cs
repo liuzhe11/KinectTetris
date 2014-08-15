@@ -259,6 +259,7 @@ namespace Kinect_TetrisV2
                         if (within(jointPoint, screenPanel))
                         {
                             startFalling = true;
+                            this.nextPanel2.Location = new System.Drawing.Point(81, 32);
                         }
                     }
                 }
@@ -294,6 +295,7 @@ namespace Kinect_TetrisV2
                         if (within(jointPoint, screenPanel))
                         {
                             startFalling = true;
+                            this.nextPanel.Location = new System.Drawing.Point(993, 32);
                         }
                     }
                 }
