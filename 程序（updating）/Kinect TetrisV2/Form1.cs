@@ -290,6 +290,7 @@ namespace Kinect_TetrisV2
                         else count2 = 0;
                         if (count2 > threshold2 * FPS)
                         {
+                            lockFlag = 1;
                             count2 = 0;
                         }
                     }
