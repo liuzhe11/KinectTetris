@@ -1,0 +1,40 @@
+delete all the picturebox2 picturebox3
+pictureBox2,3 分别用Joint HandLeft和Joint HandRight代替
+
+Form1： 226
+private void drag (joint hand, int handflag)
+{
+if (handflag ==0)
+hand = HandLeft;
+else
+hand = HandRight;
+if (panelSelection == handFlag && lockFlag == 0)
+                    {
+                        if(within(hand, nextPanel2))
+                        {
+                            count2++;
+                        }
+                        else count2 = 0;
+                        if(count2 > threshold2*FPS)
+                        {
+                            lockFlag = 1;
+                            count2 = 0;
+                        }
+                    }
+                    if (panelSelection == handFlag && lockFlag == 1)
+                    {
+                        this.nextPanel2.Location = new Point(jointPoint.X, jointPoint.Y);
+                        if (within(handleft, screenPanel))
+                        {
+                            lockFlag = 0;
+                            startFalling = true;
+
+                            if (GetNextShape())
+                            {
+                                GameOver();
+                            }
+                            this.nextPanel2.Location = new System.Drawing.Point(81, 32);
+                        }
+                    }
+
+}

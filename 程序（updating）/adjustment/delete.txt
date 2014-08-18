@@ -1,0 +1,12 @@
+Form1: 没有行数，自己写的^^
+首先：MainScreen上的形状是画出来的，不能拖动...
+假设可以拖动TT，
+Private void delete(panel panel)
+{
+TrackHand;
+Panel Select;
+Drag to the Dustbin;
+GameOver;
+Panel return to the place;
+New Shape;
+}

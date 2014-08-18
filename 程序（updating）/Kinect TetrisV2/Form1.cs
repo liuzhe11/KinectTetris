@@ -43,7 +43,6 @@ namespace Kinect_TetrisV2
         private const int threshold = 1; // 1sec
         private int count2;
         private const int threshold2 = 3;
-        private Point HandPos;
         private int lockFlag;
 
         enum GAME_STATUS { GAME_STOP, GAME_RUN, GAME_OVER };
@@ -120,7 +119,6 @@ namespace Kinect_TetrisV2
             count = 0;
             lastPose = 0;
             count2 = 0;
-            HandPos = new Point(0,0);
             lockFlag = 0;
             startFalling = false;
             // Get first Kinect Sensor
@@ -236,7 +234,7 @@ namespace Kinect_TetrisV2
                 }
                 else
                 {
-                    this.pictureBox2.Visible = true;
+                    this.pictureBox2.Visible = false; // true;
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
                     this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
 
@@ -259,7 +257,6 @@ namespace Kinect_TetrisV2
                         if (within(jointPoint, screenPanel))
                         {
                             lockFlag = 0;
-                            HandPos = newPoint(0,0);
                             startFalling = true;
 
                             if (GetNextShape())
@@ -280,7 +277,7 @@ namespace Kinect_TetrisV2
                 }
                 else
                 {
-                    this.pictureBox3.Visible = true;
+                    this.pictureBox3.Visible = false; // true;
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox3.Width / 2, this.pictureBox3.Height / 2));
                     this.pictureBox3.Location = new Point(jointPoint.X, jointPoint.Y);
 
@@ -302,7 +299,6 @@ namespace Kinect_TetrisV2
                         if (within(jointPoint, screenPanel))
                         {
                             lockFlag = 0;
-                            HandPos = newPoint(0,0);
                             startFalling = true;
 
                             if (GetNextShape())

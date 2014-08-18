@@ -1,0 +1,3 @@
+skeleton:Cray
+Panel(background):White
+Panel(Moving): Transparent?

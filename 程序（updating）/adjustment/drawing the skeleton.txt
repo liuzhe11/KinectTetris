@@ -1,0 +1,68 @@
+Form1: 581:化骨骼函数
+        private void DrawBonesAndJoints(Skeleton skeleton, Graphics drawingContext)
+        {
+            // Render Torso
+            this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
+            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
+            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderRight);
+            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.Spine);
+            this.DrawBone(skeleton, drawingContext, JointType.Spine, JointType.HipCenter);
+            this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipLeft);
+            this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipRight);
+
+            // Left Arm
+            this.DrawBone(skeleton, drawingContext, JointType.ShoulderLeft, JointType.ElbowLeft);
+            this.DrawBone(skeleton, drawingContext, JointType.ElbowLeft, JointType.WristLeft);
+            this.DrawBone(skeleton, drawingContext, JointType.WristLeft, JointType.HandLeft);
+
+            // Right Arm
+            this.DrawBone(skeleton, drawingContext, JointType.ShoulderRight, JointType.ElbowRight);
+            this.DrawBone(skeleton, drawingContext, JointType.ElbowRight, JointType.WristRight);
+            this.DrawBone(skeleton, drawingContext, JointType.WristRight, JointType.HandRight);
+
+            // Left Leg
+            this.DrawBone(skeleton, drawingContext, JointType.HipLeft, JointType.KneeLeft);
+            this.DrawBone(skeleton, drawingContext, JointType.KneeLeft, JointType.AnkleLeft);
+            this.DrawBone(skeleton, drawingContext, JointType.AnkleLeft, JointType.FootLeft);
+
+            // Right Leg
+            this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
+            this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
+            this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
+
+            // Render Joints
+            foreach (Joint joint in skeleton.Joints)
+            {
+                Brush drawBrush = null;
+
+                if (joint.TrackingState == JointTrackingState.Tracked)
+                {
+                    drawBrush = this.trackedJointBrush;
+                }
+                else if (joint.TrackingState == JointTrackingState.Inferred)
+                {
+                    drawBrush = this.inferredJointBrush;
+                }
+
+                if (drawBrush != null)
+                {
+                    Pen jointPen = new Pen(Color.Cyan);
+                    drawingContext.DrawEllipse(jointPen, this.SkeletonPointToScreen(joint.Position).X, this.SkeletonPointToScreen(joint.Position).Y, (int)JointThickness, (int)JointThickness);
+                }
+            }
+        }
+(我觉得改变骨骼的粗细和比例应该在这，但是具体用哪个参数呢？new Pen 是颜色，JointThickness 是画笔粗细？)
+
+
+Form1:184：调用函数
+if (skeleton != null)
+                        {
+//(画图位置改变，非Panel1，为全图) Graphics jointg = panel1.CreateGraphics();
+                            jointg.FillRectangle(new SolidBrush(Color.White), 0, 0, 
+//(画图位置改变，非Panel1，为全图) panel1.Width, panel1.Height);
+                            DrawBonesAndJoints(skeleton, jointg);
+                            this.ProcessPosePerforming(skeleton);
+                            TrackHand(skeleton.Joints[JointType.HandLeft], 0);
+                            TrackHand(skeleton.Joints[JointType.HandRight], 1);
+                        }
+（设定大小和相对位置，初始位置定义为中心位置）
