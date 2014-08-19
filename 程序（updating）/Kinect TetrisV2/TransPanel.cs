@@ -18,7 +18,7 @@ namespace Kinect_TetrisV2
     /// Width of output drawing
     /// </summary>
     private const float RenderWidth = 640.0f;
-    private KinectSensor kinect = null;//Point to Kinect object
+    public KinectSensor kinect = null;//Point to Kinect object
 
     /// <summary>
     /// Height of our output drawing
