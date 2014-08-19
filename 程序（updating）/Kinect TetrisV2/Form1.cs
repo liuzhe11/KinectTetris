@@ -579,7 +579,7 @@ namespace Kinect_TetrisV2
         /// </summary>
         /// <param name="skeleton">skeleton to draw</param>
         /// <param name="drawingContext">drawing context to draw to</param>
-        private void DrawBonesAndJoints(Skeleton skeleton, Graphics drawingContext)
+        public void DrawBonesAndJoints(Skeleton skeleton, Graphics drawingContext)
         {
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);

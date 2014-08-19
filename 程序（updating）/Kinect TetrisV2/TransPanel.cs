@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
-
+using Microsoft.Kinect;
 
 namespace Kinect_TetrisV2
 {
@@ -21,7 +21,7 @@ namespace Kinect_TetrisV2
       //
     }
 
-    public void SetSkeleton(newSkeleton) {
+    public void SetSkeleton(Skeleton newSkeleton) {
       this.skeleton = newSkeleton;
     }
 
@@ -35,7 +35,7 @@ namespace Kinect_TetrisV2
       }
     }
 
-    protected void InvalidateEx()
+    public void InvalidateEx()
     {
       if(Parent==null)
         return;
@@ -52,7 +52,7 @@ namespace Kinect_TetrisV2
     protected override void OnPaint(PaintEventArgs e)
     {
       if (this.skeleton != null) {
-        DrawBonesAndJoints(this.skeleton, e.Graphics)
+        DrawBonesAndJoints(this.skeleton, e.Graphics);
       }
     }
 

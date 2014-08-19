@@ -311,7 +311,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel nextPanel;
         private System.Windows.Forms.Panel screenPanel;
-        private System.Windows.Forms.Panel panel1;
+        private TransPanel panel1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel nextPanel2;
         private System.Windows.Forms.PictureBox pictureBox1;
