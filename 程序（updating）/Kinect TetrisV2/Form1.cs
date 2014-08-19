@@ -184,8 +184,8 @@ namespace Kinect_TetrisV2
                         if (skeleton != null)
                         {
                             Graphics jointg = panel1.CreateGraphics();
-                            jointg.FillRectangle(new SolidBrush(Color.White), 0, 0, panel1.Width, panel1.Height);
-                            DrawBonesAndJoints(skeleton, jointg);
+                            panel1.SetSkeleton(skeleton);
+                            panel1.InvalidateEx();
                             this.ProcessPosePerforming(skeleton);
                             TrackHand(skeleton.Joints[JointType.HandLeft], 0);
                             TrackHand(skeleton.Joints[JointType.HandRight], 1);

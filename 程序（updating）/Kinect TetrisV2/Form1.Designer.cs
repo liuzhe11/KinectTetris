@@ -49,7 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.nextPanel = new System.Windows.Forms.Panel();
             this.screenPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1 = new TransPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.nextPanel2 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -59,20 +59,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // timer
-            // 
+            //
             this.timer.Interval = 300;
             this.timer.Tick += new System.EventHandler(this.OnTimer);
-            // 
+            //
             // menuStrip
-            // 
+            //
             this.menuStrip.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.gameMenu,
             this.helpMenu});
-            // 
+            //
             // gameMenu
-            // 
+            //
             this.gameMenu.Index = 0;
             this.gameMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.startMenu,
@@ -80,45 +80,45 @@
             this.menuItem4,
             this.exitMenu});
             this.gameMenu.Text = "File(&F)";
-            // 
+            //
             // startMenu
-            // 
+            //
             this.startMenu.Index = 0;
             this.startMenu.Text = "Start(&S)";
             this.startMenu.Click += new System.EventHandler(this.startMenu_Click);
-            // 
+            //
             // stopMenu
-            // 
+            //
             this.stopMenu.Enabled = false;
             this.stopMenu.Index = 1;
             this.stopMenu.Text = "Stop(&T)";
             this.stopMenu.Click += new System.EventHandler(this.stopMenu_Click);
-            // 
+            //
             // menuItem4
-            // 
+            //
             this.menuItem4.Index = 2;
             this.menuItem4.Text = "-";
-            // 
+            //
             // exitMenu
-            // 
+            //
             this.exitMenu.Index = 3;
             this.exitMenu.Text = "Exit(&X)";
             this.exitMenu.Click += new System.EventHandler(this.exitMenu_Click);
-            // 
+            //
             // helpMenu
-            // 
+            //
             this.helpMenu.Index = 1;
             this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.aboutMenu});
             this.helpMenu.Text = "Help(&H)";
-            // 
+            //
             // aboutMenu
-            // 
+            //
             this.aboutMenu.Index = 0;
             this.aboutMenu.Text = "About Tetris(&A)";
-            // 
+            //
             // comboBox1
-            // 
+            //
             this.comboBox1.Items.AddRange(new object[] {
             "0",
             "1",
@@ -136,54 +136,54 @@
             this.comboBox1.Size = new System.Drawing.Size(76, 23);
             this.comboBox1.TabIndex = 19;
             this.comboBox1.Text = "0";
-            // 
+            //
             // linesLabel
-            // 
+            //
             this.linesLabel.Location = new System.Drawing.Point(1064, 272);
             this.linesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linesLabel.Name = "linesLabel";
             this.linesLabel.Size = new System.Drawing.Size(75, 20);
             this.linesLabel.TabIndex = 18;
             this.linesLabel.Text = "0";
-            // 
+            //
             // scoreLabel
-            // 
+            //
             this.scoreLabel.Location = new System.Drawing.Point(1064, 243);
             this.scoreLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.scoreLabel.Name = "scoreLabel";
             this.scoreLabel.Size = new System.Drawing.Size(75, 20);
             this.scoreLabel.TabIndex = 17;
             this.scoreLabel.Text = "0";
-            // 
+            //
             // label4
-            // 
+            //
             this.label4.Location = new System.Drawing.Point(990, 302);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 20);
             this.label4.TabIndex = 16;
             this.label4.Text = "Speed：";
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.Location = new System.Drawing.Point(990, 272);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 20);
             this.label3.TabIndex = 15;
             this.label3.Text = "Line：";
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.Location = new System.Drawing.Point(990, 243);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 20);
             this.label2.TabIndex = 14;
             this.label2.Text = "Score：";
-            // 
+            //
             // nextPanel
-            // 
+            //
             this.nextPanel.BackColor = System.Drawing.Color.White;
             this.nextPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.nextPanel.Location = new System.Drawing.Point(993, 32);
@@ -191,9 +191,9 @@
             this.nextPanel.Name = "nextPanel";
             this.nextPanel.Size = new System.Drawing.Size(207, 194);
             this.nextPanel.TabIndex = 12;
-            // 
+            //
             // screenPanel
-            // 
+            //
             this.screenPanel.BackColor = System.Drawing.Color.White;
             this.screenPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.screenPanel.Location = new System.Drawing.Point(409, 32);
@@ -201,9 +201,9 @@
             this.screenPanel.Name = "screenPanel";
             this.screenPanel.Size = new System.Drawing.Size(480, 600);
             this.screenPanel.TabIndex = 11;
-            // 
+            //
             // panel1
-            // 
+            //
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Location = new System.Drawing.Point(993, 344);
@@ -211,9 +211,9 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(207, 194);
             this.panel1.TabIndex = 20;
-            // 
+            //
             // label8
-            // 
+            //
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(616, 771);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -221,9 +221,9 @@
             this.label8.Size = new System.Drawing.Size(79, 15);
             this.label8.TabIndex = 25;
             this.label8.Text = "Fall fast";
-            // 
+            //
             // nextPanel2
-            // 
+            //
             this.nextPanel2.BackColor = System.Drawing.Color.White;
             this.nextPanel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.nextPanel2.Location = new System.Drawing.Point(81, 32);
@@ -231,36 +231,36 @@
             this.nextPanel2.Name = "nextPanel2";
             this.nextPanel2.Size = new System.Drawing.Size(207, 194);
             this.nextPanel2.TabIndex = 26;
-            // 
+            //
             // pictureBox2
-            // 
+            //
             this.pictureBox2.Image = global::Kinect_TetrisV2.Properties.Resources.LeftHand;
             this.pictureBox2.Location = new System.Drawing.Point(295, 97);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(100, 102);
             this.pictureBox2.TabIndex = 28;
             this.pictureBox2.TabStop = false;
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(81, 291);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(164, 236);
             this.pictureBox1.TabIndex = 27;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // pictureBox3
-            // 
+            //
             this.pictureBox3.Image = global::Kinect_TetrisV2.Properties.Resources.RightHand;
             this.pictureBox3.Location = new System.Drawing.Point(896, 97);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(100, 100);
             this.pictureBox3.TabIndex = 29;
             this.pictureBox3.TabStop = false;
-            // 
+            //
             // Form1
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 597);
