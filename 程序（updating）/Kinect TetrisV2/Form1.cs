@@ -44,6 +44,7 @@ namespace Kinect_TetrisV2
         private int count2;
         private const int threshold2 = 3;
         private int lockFlag;
+        private Skeleton skeleton;
 
         enum GAME_STATUS { GAME_STOP, GAME_RUN, GAME_OVER };
 
