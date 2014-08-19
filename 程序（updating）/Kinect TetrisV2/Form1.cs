@@ -27,6 +27,7 @@ namespace Kinect_TetrisV2
         private int score;
         private int lines;
         private int panelSelection;
+        private KinectSensor kinect = null;//Point to Kinect object
         private Skeleton[] skeletonData;   //save the skeleton data got from Kinect Sensor
         private Pose[] poseLibrary;//user-defined pose library
         private Pose startPose;//user-defined pose
@@ -121,9 +122,9 @@ namespace Kinect_TetrisV2
             lockFlag = 0;
             startFalling = false;
             // Get first Kinect Sensor
-            panel1.kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
+            kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
             //Notice: this judgement doesn't work for MS
-            if (null == panel1.kinect)
+            if (null == kinect)
             {
                 // this.ShowDialog();
             }
@@ -131,15 +132,15 @@ namespace Kinect_TetrisV2
             {
                 //this.label1.Text = "The Kinect Sensor is being checked";
                 // Allow tracking skeleton
-                panel1.kinect.SkeletonStream.Enable();
+                kinect.SkeletonStream.Enable();
                 //Stop geting color and depth data
-                panel1.kinect.ColorStream.Disable();
-                panel1.kinect.DepthStream.Disable();
-                skeletonData = new Skeleton[panel1.kinect.SkeletonStream.FrameSkeletonArrayLength];
+                kinect.ColorStream.Disable();
+                kinect.DepthStream.Disable();
+                skeletonData = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
                 // Get Ready for Skeleton Ready Events
-                panel1.kinect.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(kinect_SkeletonFrameReady);
+                kinect.SkeletonFrameReady += new EventHandler<SkeletonFrameReadyEventArgs>(kinect_SkeletonFrameReady);
                 // Start Kinect sensor
-                panel1.kinect.Start();
+                kinect.Start();
             }
 
             catch (Exception ex)
@@ -234,7 +235,7 @@ namespace Kinect_TetrisV2
                 else
                 {
                     this.pictureBox2.Visible = false; // true;
-                    Point jointPoint = GetJointPoint(this.panel1.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
+                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
                     this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
 
                     if (panelSelection == handFlag && lockFlag == 0)
@@ -277,7 +278,7 @@ namespace Kinect_TetrisV2
                 else
                 {
                     this.pictureBox3.Visible = false; // true;
-                    Point jointPoint = GetJointPoint(this.panel1.kinect, hand, new Point(this.pictureBox3.Width / 2, this.pictureBox3.Height / 2));
+                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox3.Width / 2, this.pictureBox3.Height / 2));
                     this.pictureBox3.Location = new Point(jointPoint.X, jointPoint.Y);
 
                     if (panelSelection == handFlag && lockFlag == 0)
@@ -388,8 +389,8 @@ namespace Kinect_TetrisV2
         private double GetJointAngle(Joint centerJoint, Joint angleJoint)
         {
 
-            Point primaryPoint = GetJointPoint(this.panel1.kinect, centerJoint, new Point());
-            Point anglePoint = GetJointPoint(this.panel1.kinect, angleJoint, new Point());
+            Point primaryPoint = GetJointPoint(this.kinect, centerJoint, new Point());
+            Point anglePoint = GetJointPoint(this.kinect, angleJoint, new Point());
             Point x = new Point(primaryPoint.X + anglePoint.X, primaryPoint.Y);
 
             double a;
@@ -578,7 +579,7 @@ namespace Kinect_TetrisV2
         /// </summary>
         /// <param name="skeleton">skeleton to draw</param>
         /// <param name="drawingContext">drawing context to draw to</param>
-        public void DrawBonesAndJoints(Skeleton skeleton, Graphics drawingContext)
+        private void DrawBonesAndJoints(Skeleton skeleton, Graphics drawingContext)
         {
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
@@ -640,7 +641,7 @@ namespace Kinect_TetrisV2
         {
             // Convert point to depth space.
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
-            DepthImagePoint depthPoint = this.panel1.kinect.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
+            DepthImagePoint depthPoint = this.kinect.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X/3 - 30, depthPoint.Y/3 - 20);
         }
 
