@@ -11,10 +11,10 @@ namespace Kinect_TetrisV2
   /// <summary>
   /// Summary description for TransPanel.
   /// </summary>
-  public delegate void DrawEventHandler(Graphics);
+  public delegate void DrawEventHandler(Graphics g);
   public class TransPanel : Panel
   {
-    public event Draw DrawFunc;
+    public event DrawEventHandler DrawFunc;
     public TransPanel()
     {
       //
@@ -51,6 +51,7 @@ namespace Kinect_TetrisV2
       if (DrawFunc != null) {
         DrawFunc(e.Graphics);
       }
+      base.OnPaint(e);
     }
 
 

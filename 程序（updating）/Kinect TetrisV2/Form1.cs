@@ -44,7 +44,7 @@ namespace Kinect_TetrisV2
         private int count2;
         private const int threshold2 = 3;
         private int lockFlag;
-        private Skeleton skeleton;
+        private Skeleton skeleton = null;
 
         enum GAME_STATUS { GAME_STOP, GAME_RUN, GAME_OVER };
 
@@ -107,7 +107,7 @@ namespace Kinect_TetrisV2
             PopulatePoseLibrary();
             StartKinectST();
             EnableDoubleBuffering();
-            panel1.DrawFunc += new DrawEventHandler(this.DrawBonesAndJoints);
+            panel1.DrawFunc += new DrawEventHandler(this.DrawPanel1);
         }
 
 
@@ -178,15 +178,14 @@ namespace Kinect_TetrisV2
                     {
                         // get the skeletal information in this frame
                         skeletonFrame.CopySkeletonDataTo(this.skeletonData);
-                        Skeleton skeleton = GetPrimarySkeleton(this.skeletonData);
+                        this.skeleton = GetPrimarySkeleton(this.skeletonData);
 
 
 
                         //call the function for pose
-                        if (skeleton != null)
+                        if (this.skeleton != null)
                         {
                             Graphics jointg = panel1.CreateGraphics();
-                            panel1.SetSkeleton(skeleton);
                             panel1.InvalidateEx();
                             this.ProcessPosePerforming(skeleton);
                             TrackHand(skeleton.Joints[JointType.HandLeft], 0);
@@ -575,7 +574,13 @@ namespace Kinect_TetrisV2
                 }
             }
         }
-
+        private void DrawPanel1(Graphics drawingContext)
+        {
+            if (skeleton != null)
+            {
+                DrawBonesAndJoints(drawingContext);
+            }
+        }
         /// <summary>
         /// Draws a skeleton's bones and joints
         /// </summary>
