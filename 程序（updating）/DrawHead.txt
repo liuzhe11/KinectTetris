@@ -1,0 +1,11 @@
+630:
+if(Joint.GetType !=JointType.Head)
+{
+                    drawingContext.DrawEllipse(jointPen, this.SkeletonPointToScreen(joint.Position).X, this.SkeletonPointToScreen(joint.Position).Y, (int)JointThickness, (int)JointThickness);
+
+}
+else
+{
+                    drawingContext.DrawEllipse(jointPen, this.SkeletonPointToScreen(joint.Position).X, this.SkeletonPointToScreen(joint.Position).Y, (int)JointThickness*10, (int)JointThickness*10);
+
+}
