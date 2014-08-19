@@ -106,6 +106,7 @@ namespace Kinect_TetrisV2
             PopulatePoseLibrary();
             StartKinectST();
             EnableDoubleBuffering();
+            panel1.DrawFunc += new DrawEventHandler(this.DrawBonesAndJoints);
         }
 
 
@@ -710,7 +711,6 @@ namespace Kinect_TetrisV2
 
                 DrawText(logo, grMain, new Point(20, (int)(screenPanel.Height * 0.42)), 15);
             }
-            DrawBonesAndJoints(panel1.CreateGraphics());
         }
 
         /// <summary>
