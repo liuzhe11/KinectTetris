@@ -13,16 +13,11 @@ namespace Kinect_TetrisV2
   /// </summary>
   public class TransPanel : Panel
   {
-    private Skeleton skeleton;
     public TransPanel()
     {
       //
       // TODO: Add constructor logic here
       //
-    }
-
-    public void SetSkeleton(Skeleton newSkeleton) {
-      this.skeleton = newSkeleton;
     }
 
     protected override CreateParams CreateParams
@@ -51,10 +46,7 @@ namespace Kinect_TetrisV2
 
     protected override void OnPaint(PaintEventArgs e)
     {
-      if (this.skeleton != null) {
-        Form form1 = this.FindForm();
-        form1.DrawBonesAndJoints(this.skeleton, e.Graphics);
-      }
+      base.OnPaint(e);
     }
 
 
