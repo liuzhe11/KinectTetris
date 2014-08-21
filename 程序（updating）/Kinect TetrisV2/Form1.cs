@@ -235,7 +235,7 @@ namespace Kinect_TetrisV2
                 }
                 else
                 {
-                    this.pictureBox2.Visible = false; // true;
+                    this.pictureBox2.Visible = true;
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
                     this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
 
@@ -278,7 +278,7 @@ namespace Kinect_TetrisV2
                 }
                 else
                 {
-                    this.pictureBox3.Visible = false; // true;
+                    this.pictureBox3.Visible = true;
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox3.Width / 2, this.pictureBox3.Height / 2));
                     this.pictureBox3.Location = new Point(jointPoint.X, jointPoint.Y);
 
@@ -649,7 +649,7 @@ namespace Kinect_TetrisV2
             // Convert point to depth space.
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
             DepthImagePoint depthPoint = this.kinect.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
-            return new Point(depthPoint.X/3 - 30, depthPoint.Y/3 - 20);
+            return new Point(depthPoint.X/3 - 30, depthPoint.Y/3 - 20); //改大小？？
         }
 
         /// <summary>
@@ -685,7 +685,7 @@ namespace Kinect_TetrisV2
                 drawPen = this.trackedBonePen;
             }
 
-            drawingContext.DrawLine(drawPen, this.SkeletonPointToScreen(joint0.Position), this.SkeletonPointToScreen(joint1.Position));
+            drawingContext.DrawLine(drawPen, this.SkeletonPointToScreen(joint0.Position), this.SkeletonPointToScreen(joint1.Position)); //改大小？
         }
 
 
@@ -807,24 +807,29 @@ namespace Kinect_TetrisV2
         private void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             int key = e.KeyValue;
+            // enum key = e.KeyCode;
             bool ret;
             Graphics grMain = screenPanel.CreateGraphics();
             if (gameStatus == GAME_STATUS.GAME_RUN)
             {
                 switch (key)
                 {
-                    case 38:	//	up
+                    case 38:	//	Up
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
                         break;
-                    case 37:	//	left
+                    case 37:	//	Left
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
                         break;
-                    case 39:	//	right
+                    case 39:	//	Right
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_RIGHT);
                         break;
-                    case 40:	//	fall down
+                    case 40:	//	Down
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_FALL);
                         break;
+                   /* case TAB
+                        startFalling = true;
+                        break;*/
+                        
                     default:
                         ret = false;
                         break;
@@ -993,6 +998,7 @@ namespace Kinect_TetrisV2
            // Set the value of the double-buffering style bits to true.
            this.SetStyle(ControlStyles.DoubleBuffer |
               ControlStyles.UserPaint |
+              ControlStyles.OptimizedDoubleBuffer |
               ControlStyles.AllPaintingInWmPaint,
               true);
            this.UpdateStyles();
@@ -1000,7 +1006,10 @@ namespace Kinect_TetrisV2
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            DrawScreen();
+            if (sender != panel1)
+            {
+                DrawScreen();
+            }
             try
             {
                 //pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\image\\instruction.bmp");
