@@ -61,17 +61,17 @@ namespace Kinect_TetrisV2
         /// <summary>
         /// Thickness of drawn joint lines
         /// </summary>
-        private const double JointThickness = 3;
+        private const double JointThickness = 8;
 
         /// <summary>
         /// Thickness of body center ellipse
         /// </summary>
-        private const double BodyCenterThickness = 10;
+        private const double BodyCenterThickness = 30;
 
         /// <summary>
         /// Thickness of clip edge rectangles
         /// </summary>
-        private const double ClipBoundsThickness = 10;
+        private const double ClipBoundsThickness = 30;
 
         /// <summary>
         /// Brush used to draw skeleton center point
@@ -86,17 +86,17 @@ namespace Kinect_TetrisV2
         /// <summary>
         /// Brush used for drawing joints that are currently inferred
         /// </summary>
-        private readonly Brush inferredJointBrush = Brushes.Yellow;
+        //private readonly Brush inferredJointBrush = Brushes.Yellow;
 
         /// <summary>
         /// Pen used for drawing bones that are currently tracked
         /// </summary>
-        private readonly Pen trackedBonePen = new Pen(Brushes.Green, 6);
+        private readonly Pen trackedBonePen = new Pen(Brushes.Green, 12);
 
         /// <summary>
         /// Pen used for drawing bones that are currently inferred
         /// </summary>
-        private readonly Pen inferredBonePen = new Pen(Brushes.Gray, 1);
+        //private readonly Pen inferredBonePen = new Pen(Brushes.Gray, 1);
 
         public Form1()
         {
@@ -229,15 +229,10 @@ namespace Kinect_TetrisV2
             // hand: 0 for left, 1 for right
             if (handFlag == 0)
             {
-                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling)
+                if (hand.TrackingState == JointTrackingState.Tracked)
                 {
-                    this.pictureBox2.Visible = false;
-                }
-                else
-                {
-                    this.pictureBox2.Visible = true;
-                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox2.Width / 2, this.pictureBox2.Height / 2));
-                    this.pictureBox2.Location = new Point(jointPoint.X, jointPoint.Y);
+                
+                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(0,0));
 
                     if (panelSelection == handFlag && lockFlag == 0)
                     {
@@ -272,15 +267,10 @@ namespace Kinect_TetrisV2
             }
             else
             {
-                if (hand.TrackingState == JointTrackingState.NotTracked || startFalling)
+                if (hand.TrackingState == JointTrackingState.Tracked)
                 {
-                    this.pictureBox3.Visible = false;
-                }
-                else
-                {
-                    this.pictureBox3.Visible = true;
-                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(this.pictureBox3.Width / 2, this.pictureBox3.Height / 2));
-                    this.pictureBox3.Location = new Point(jointPoint.X, jointPoint.Y);
+                
+                    Point jointPoint = GetJointPoint(this.kinect, hand, new Point(0,0));
 
                     if (panelSelection == handFlag && lockFlag == 0)
                     {
@@ -628,13 +618,27 @@ namespace Kinect_TetrisV2
                 }
                 else if (joint.TrackingState == JointTrackingState.Inferred)
                 {
-                    drawBrush = this.inferredJointBrush;
+                    drawBrush = this.trackedJointBrush;
                 }
 
                 if (drawBrush != null)
                 {
-                    Pen jointPen = new Pen(Color.Cyan);
-                    drawingContext.DrawEllipse(jointPen, this.SkeletonPointToScreen(joint.Position).X, this.SkeletonPointToScreen(joint.Position).Y, (int)JointThickness, (int)JointThickness);
+                    Brush jointbrush = new SolidBrush(Color.Green);
+                    if (joint.JointType == JointType.Head)
+                    {
+                        drawingContext.FillEllipse(jointbrush, this.SkeletonPointToScreen(joint.Position).X-45, this.SkeletonPointToScreen(joint.Position).Y-45, (int)JointThickness * 10, (int)JointThickness * 10);
+
+                    }
+                    else if(joint.JointType == JointType.HandLeft || joint.JointType == JointType.HandRight)
+                    {
+                        drawingContext.FillEllipse(jointbrush, this.SkeletonPointToScreen(joint.Position).X-18, this.SkeletonPointToScreen(joint.Position).Y-18, (int)JointThickness * 4, (int)JointThickness * 4);
+
+                    }
+                    else 
+                    {
+                        drawingContext.FillEllipse(jointbrush, this.SkeletonPointToScreen(joint.Position).X-9, this.SkeletonPointToScreen(joint.Position).Y-9, (int)JointThickness*2, (int)JointThickness*2);
+
+                    }
                 }
             }
         }
@@ -649,7 +653,7 @@ namespace Kinect_TetrisV2
             // Convert point to depth space.
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
             DepthImagePoint depthPoint = this.kinect.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
-            return new Point(depthPoint.X/3 - 30, depthPoint.Y/3 - 20); //改大小？？
+            return new Point(depthPoint.X * this.Size.Width / 640 - 90, depthPoint.Y * this.Size.Height / 480 - 60); //改大小？？
         }
 
         /// <summary>
@@ -679,7 +683,7 @@ namespace Kinect_TetrisV2
             }
 
             // We assume all drawn bones are inferred unless BOTH joints are tracked
-            Pen drawPen = this.inferredBonePen;
+            Pen drawPen = this.trackedBonePen;
             if (joint0.TrackingState == JointTrackingState.Tracked && joint1.TrackingState == JointTrackingState.Tracked)
             {
                 drawPen = this.trackedBonePen;
@@ -806,35 +810,39 @@ namespace Kinect_TetrisV2
         /// <param name="e"></param>
         private void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            int key = e.KeyValue;
-            // enum key = e.KeyCode;
+            var key = e.KeyCode;
             bool ret;
             Graphics grMain = screenPanel.CreateGraphics();
             if (gameStatus == GAME_STATUS.GAME_RUN)
             {
                 switch (key)
                 {
-                    case 38:	//	Up
+                    case Keys.Up:
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
                         break;
-                    case 37:	//	Left
+                    case Keys.Left:
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
                         break;
-                    case 39:	//	Right
+                    case Keys.Right:
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_RIGHT);
                         break;
-                    case 40:	//	Down
+                    case Keys.Down:
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_FALL);
                         break;
-                   /* case TAB
+                    case Keys.Tab:
                         startFalling = true;
-                        break;*/
+                        if (GetNextShape())
+                        {
+                            GameOver();
+                        }
+                        ret = false;
+                        break;
                         
                     default:
                         ret = false;
                         break;
                 }
-                if (ret && key == 40)
+                if (ret && key == Keys.Down)
                 {
                     DisposeShapeDown();
                 }
