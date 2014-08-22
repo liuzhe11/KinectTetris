@@ -231,7 +231,7 @@ namespace Kinect_TetrisV2
             {
                 if (hand.TrackingState == JointTrackingState.Tracked)
                 {
-                
+
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(0,0));
 
                     if (panelSelection == handFlag && lockFlag == 0)
@@ -269,7 +269,7 @@ namespace Kinect_TetrisV2
             {
                 if (hand.TrackingState == JointTrackingState.Tracked)
                 {
-                
+
                     Point jointPoint = GetJointPoint(this.kinect, hand, new Point(0,0));
 
                     if (panelSelection == handFlag && lockFlag == 0)
@@ -634,7 +634,7 @@ namespace Kinect_TetrisV2
                         drawingContext.FillEllipse(jointbrush, this.SkeletonPointToScreen(joint.Position).X-18, this.SkeletonPointToScreen(joint.Position).Y-18, (int)JointThickness * 4, (int)JointThickness * 4);
 
                     }
-                    else 
+                    else
                     {
                         drawingContext.FillEllipse(jointbrush, this.SkeletonPointToScreen(joint.Position).X-9, this.SkeletonPointToScreen(joint.Position).Y-9, (int)JointThickness*2, (int)JointThickness*2);
 
@@ -837,7 +837,7 @@ namespace Kinect_TetrisV2
                         }
                         ret = false;
                         break;
-                        
+
                     default:
                         ret = false;
                         break;
@@ -1010,6 +1010,18 @@ namespace Kinect_TetrisV2
               ControlStyles.AllPaintingInWmPaint,
               true);
            this.UpdateStyles();
+           screenPanel.SetStyle(ControlStyles.DoubleBuffer |
+              ControlStyles.UserPaint |
+              ControlStyles.OptimizedDoubleBuffer |
+              ControlStyles.AllPaintingInWmPaint,
+              true);
+           screenPanel.UpdateStyles();
+           panel1.SetStyle(ControlStyles.DoubleBuffer |
+              ControlStyles.UserPaint |
+              ControlStyles.OptimizedDoubleBuffer |
+              ControlStyles.AllPaintingInWmPaint,
+              true);
+           panel1.UpdateStyles();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
