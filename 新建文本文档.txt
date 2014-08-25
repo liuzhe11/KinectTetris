@@ -1,0 +1,68 @@
+Body 20: MOVE_ROTATELEFT=4, MOVE_ROTATERIGHT=5
+Body 144: case MOVE_TYPE.MOVE_ROTATELEFT:
+	s.RotateL();
+	break;
+	case MOVE_TYPE.MOVE_ROTATERIGHT:
+	s.ROTATER();
+	break;
+Form1 424: this.poseLibrary[0] = new Pose();
+                      this.poseLibrary[0].Title = "Arms Left - RotateLeft";
+                      this.poseLibrary[0].Angles = new PoseAngle[4];
+                      this.poseLibrary[0].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 30, 10);
+                      this.poseLibrary[0].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 30, 10);
+                      this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 45, 10);
+                      this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 45, 10);
+
+	    this.poseLibrary[4] = new Pose();
+                      this.poseLibrary[4].Title = "Arms Up - Rotate";
+                      this.poseLibrary[4].Angles = new PoseAngle[4];
+                      this.poseLibrary[4].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 150, 10);
+                      this.poseLibrary[4].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 150, 10);
+                      this.poseLibrary[4].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 135, 10);
+                      this.poseLibrary[4].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 135, 10);
+
+Form 514:
+if (IsPose(skeleton, this.poseLibrary[0]))
+            {
+                Console.WriteLine("Two hands right");
+                value = UP1;
+            }
+if (IsPose(skeleton, this.poseLibrary[4]))
+            {
+                Console.WriteLine("Two hands left");
+                value = UP2;
+            }
+
+Form 545:
+case UP1:	
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATERIGHT);
+                        break;
+case UP2
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATELEFT);
+                        break;
+
+Shape 192:
+        public void RotateLeft()
+        {
+            for (int i = 0; i < blockList.GetLength(0); i++)
+            {
+                Point pt = blockList[i].Position;
+                int temp = pt.X;
+                pt.X = pt.Y + 1 - tetrisDef[indexDef].size ;
+                pt.Y = temp;
+                blockList[i].Position = pt;
+            }
+        }
+
+        public void RotateRight()
+        {
+            for (int i = 0; i < blockList.GetLength(0); i++)
+            {
+                Point pt = blockList[i].Position;
+                int temp = pt.X;
+                pt.X = tetrisDef[indexDef].size - pt.Y - 1;
+                pt.Y = temp;
+                blockList[i].Position = pt;
+            }
+        }
+

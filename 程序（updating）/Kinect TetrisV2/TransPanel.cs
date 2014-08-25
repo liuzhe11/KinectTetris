@@ -17,6 +17,8 @@ namespace Kinect_TetrisV2
     public event DrawEventHandler DrawFunc;
     public TransPanel()
     {
+        // Set the value of the double-buffering style bits to true.
+        
       //
       // TODO: Add constructor logic here
       //

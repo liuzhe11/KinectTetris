@@ -415,10 +415,10 @@ namespace Kinect_TetrisV2
             this.startPose = new Pose();
             this.startPose.Title = "Start Pose";
             this.startPose.Angles = new PoseAngle[4];
-            this.startPose.Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 30);
-            this.startPose.Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 30);
-            this.startPose.Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 30);
-            this.startPose.Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 30);
+            this.startPose.Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 10);
+            this.startPose.Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 10);
+            this.startPose.Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 10);
+            this.startPose.Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 10);
 
 
             //Pose 1 - Both Hands Up
@@ -443,20 +443,20 @@ namespace Kinect_TetrisV2
             this.poseLibrary[2] = new Pose();
             this.poseLibrary[2].Title = "Left Up and Right Down";
             this.poseLibrary[2].Angles = new PoseAngle[4];
-            this.poseLibrary[2].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 30);
-            this.poseLibrary[2].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 30);
-            this.poseLibrary[2].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 270, 30);
-            this.poseLibrary[2].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 270, 30);
+            this.poseLibrary[2].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 10);
+            this.poseLibrary[2].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 10);
+            this.poseLibrary[2].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 270, 10);
+            this.poseLibrary[2].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 270, 10);
 
 
             //Pose 4 - Right Up and Left Down
             this.poseLibrary[3] = new Pose();
             this.poseLibrary[3].Title = "（举起右手）Right Up and Left Down";
             this.poseLibrary[3].Angles = new PoseAngle[4];
-            this.poseLibrary[3].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 270, 30);
-            this.poseLibrary[3].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 270, 30);
-            this.poseLibrary[3].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 30);
-            this.poseLibrary[3].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 30);
+            this.poseLibrary[3].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 270, 10);
+            this.poseLibrary[3].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 270, 10);
+            this.poseLibrary[3].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 10);
+            this.poseLibrary[3].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 10);
         }
 
         /// <summary>
@@ -1010,18 +1010,6 @@ namespace Kinect_TetrisV2
               ControlStyles.AllPaintingInWmPaint,
               true);
            this.UpdateStyles();
-           screenPanel.SetStyle(ControlStyles.DoubleBuffer |
-              ControlStyles.UserPaint |
-              ControlStyles.OptimizedDoubleBuffer |
-              ControlStyles.AllPaintingInWmPaint,
-              true);
-           screenPanel.UpdateStyles();
-           panel1.SetStyle(ControlStyles.DoubleBuffer |
-              ControlStyles.UserPaint |
-              ControlStyles.OptimizedDoubleBuffer |
-              ControlStyles.AllPaintingInWmPaint,
-              true);
-           panel1.UpdateStyles();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
