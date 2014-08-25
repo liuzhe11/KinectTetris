@@ -189,8 +189,20 @@ namespace Kinect_TetrisV2
         }
 
         //旋转图形
-        public void Rotate()
-        {
+        public void RotateLeft()
+        {   // clockwise
+            for (int i = 0; i < blockList.GetLength(0); i++)
+            {
+                Point pt = blockList[i].Position;
+                int temp = pt.Y;
+                pt.Y = tetrisDef[indexDef].size - pt.X - 1;
+                pt.X = temp;
+                blockList[i].Position = pt;
+            }
+        }
+
+        public void RotateRight()
+        {   // anti-clockwise
             for (int i = 0; i < blockList.GetLength(0); i++)
             {
                 Point pt = blockList[i].Position;

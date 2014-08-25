@@ -17,7 +17,7 @@ namespace Kinect_TetrisV2
             filledLines = 0;
         }
 
-        public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROTATE = 4 };
+        public enum MOVE_TYPE { MOVE_LEFT = 0, MOVE_RIGHT = 1, MOVE_DOWN = 2, MOVE_FALL = 3, MOVE_ROTATELEFT = 4, MOVE_ROTATERIGHT = 5 };
 
         private ArrayList blockList = new ArrayList();
         private Shape currentShape;
@@ -141,8 +141,11 @@ namespace Kinect_TetrisV2
                 case MOVE_TYPE.MOVE_RIGHT:
                     pt.X++;
                     break;
-                case MOVE_TYPE.MOVE_ROTATE:
-                    s.Rotate();
+                case MOVE_TYPE.MOVE_ROTATELEFT:
+                    s.RotateLeft();
+                    break;
+                case MOVE_TYPE.MOVE_ROTATERIGHT:
+                    s.RotateRight();
                     break;
                 default:
                     break;

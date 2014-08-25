@@ -32,7 +32,8 @@ namespace Kinect_TetrisV2
         private Pose[] poseLibrary;//user-defined pose library
         private Pose startPose;//user-defined pose
         private const int START = -1;
-        private const int UP = 1;
+        private const int UP1 = 0;
+        private const int UP2 = 1;
         private const int DOWN = 2;
         private const int LEFT = 3;
         private const int RIGHT = 4;
@@ -409,7 +410,7 @@ namespace Kinect_TetrisV2
         /// </summary>
         private void PopulatePoseLibrary()
         {
-            this.poseLibrary = new Pose[4];
+            this.poseLibrary = new Pose[5];
 
             //Game start Pose - Arms Extended
             this.startPose = new Pose();
@@ -423,12 +424,20 @@ namespace Kinect_TetrisV2
 
             //Pose 1 - Both Hands Up
             this.poseLibrary[0] = new Pose();
-            this.poseLibrary[0].Title = "Arms Up - Rotate";
+            this.poseLibrary[0].Title = "Arms Left - RotateLeft";
             this.poseLibrary[0].Angles = new PoseAngle[4];
-            this.poseLibrary[0].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 90, 30);
-            this.poseLibrary[0].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 90, 30);
-            this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 90, 30);
-            this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 90, 30);
+            this.poseLibrary[0].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 30, 10);
+            this.poseLibrary[0].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 30, 10);
+            this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 45, 10);
+            this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 45, 10);
+
+            this.poseLibrary[4] = new Pose();
+            this.poseLibrary[4].Title = "Arms Up - RotateRight";
+            this.poseLibrary[4].Angles = new PoseAngle[4];
+            this.poseLibrary[4].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 150, 10);
+            this.poseLibrary[4].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 150, 10);
+            this.poseLibrary[4].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 135, 10);
+            this.poseLibrary[4].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 135, 10);
 
             //Pose 2 - Both Hands Cross
             this.poseLibrary[1] = new Pose();
@@ -511,10 +520,15 @@ namespace Kinect_TetrisV2
             bool ret;
             Graphics grMain = screenPanel.CreateGraphics();
             int value = 0;
-            if (IsPose(skeleton, this.poseLibrary[0]))//    up
+            if (IsPose(skeleton, this.poseLibrary[0]))
             {
-                Console.WriteLine("Two hands up, right");
-                value = UP;
+                Console.WriteLine("Two hands right");
+                value = UP1;
+            }
+            if (IsPose(skeleton, this.poseLibrary[4]))
+            {
+                Console.WriteLine("Two hands left");
+                value = UP2;
             }
             else if (IsPose(skeleton, this.poseLibrary[1]))
             {
@@ -542,8 +556,11 @@ namespace Kinect_TetrisV2
 
                 switch (value)
                 {
-                    case UP:	//	up
-                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
+                    case UP1:	
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATERIGHT);
+                        break;
+                    case UP2:
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATELEFT);
                         break;
                     case LEFT:	//	left
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
@@ -817,8 +834,13 @@ namespace Kinect_TetrisV2
             {
                 switch (key)
                 {
-                    case Keys.Up:
-                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATE);
+                    case Keys.Q:
+                    case Keys.PageUp:
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATELEFT);
+                        break;
+                    case Keys.E:
+                    case Keys.PageDown:
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATERIGHT);
                         break;
                     case Keys.Left:
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
@@ -1014,10 +1036,7 @@ namespace Kinect_TetrisV2
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            if (sender != panel1)
-            {
-                DrawScreen();
-            }
+            DrawScreen();
             try
             {
                 //pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\image\\instruction.bmp");

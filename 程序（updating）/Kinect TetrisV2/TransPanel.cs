@@ -18,7 +18,7 @@ namespace Kinect_TetrisV2
     public TransPanel()
     {
         // Set the value of the double-buffering style bits to true.
-        
+        this.DoubleBuffered = true;
       //
       // TODO: Add constructor logic here
       //
@@ -41,12 +41,14 @@ namespace Kinect_TetrisV2
 
       Rectangle rc=new Rectangle(this.Location,this.Size);
       Parent.Invalidate(rc,true);
+      Parent.Update();
+      //this.Invalidate();
     }
 
-    protected override void OnPaintBackground(PaintEventArgs pevent)
-    {
+    //protected override void OnPaintBackground(PaintEventArgs pevent)
+    //{
       //do not allow the background to be painted
-    }
+    //}
 
     protected override void OnPaint(PaintEventArgs e)
     {
