@@ -10,10 +10,10 @@ namespace Kinect_TetrisV2
   /// <summary>
   /// Summary description for TransPanel.
   /// </summary>
-  public delegate void DrawEventHandler(Graphics g);
+  public delegate void DrawHandler(Graphics g);
   public class TransPanel : Panel
   {
-    public event DrawEventHandler DrawFunc;
+    public event DrawHandler DrawFunc;
     public TransPanel()
     {
         // Set the value of the double-buffering style bits to true.

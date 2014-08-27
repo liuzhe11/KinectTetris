@@ -26,21 +26,6 @@ namespace Kinect_TetrisV2
       //
     }
 
-    protected override CreateParams CreateParams
-    {
-      get
-      {
-        CreateParams cp=base.CreateParams;
-        cp.ExStyle|=0x00000020; //WS_EX_TRANSPARENT
-        return cp;
-      }
-    }
-
-    protected override void OnPaintBackground(PaintEventArgs pevent)
-    {
-      //do not allow the background to be painted
-    }
-
     protected override void OnPaint(PaintEventArgs e)
     {
       base.OnPaint(e);

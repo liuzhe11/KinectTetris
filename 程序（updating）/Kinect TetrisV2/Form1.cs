@@ -108,7 +108,7 @@ namespace Kinect_TetrisV2
             PopulatePoseLibrary();
             StartKinectST();
             EnableDoubleBuffering();
-            panel1.DrawFunc += new DrawEventHandler(this.DrawPanel1);
+            panel1.DrawFunc += new DrawHandler(this.DrawPanel1);
             screenPanel.DrawFunc += new DrawEventHandler(this.DrawScreen);
             nextPanel.DrawFunc += new DrawEventHandler(this.ReDrawNextShape);
             nextPanel2.DrawFunc += new DrawEventHandler(this.ReDrawNextShape2);
@@ -805,7 +805,7 @@ namespace Kinect_TetrisV2
             mainBody.Reset();
             int indexShape = rndShape.Next(7);
             nextShape = new Shape(indexShape);
-            DrawScreen();
+            screenPanel.Refresh();
         }
 
         /// <summary>
@@ -895,7 +895,9 @@ namespace Kinect_TetrisV2
             if (count > 0)
             {
                 ChangeLines(count);
-                DrawScreen();
+                screenPanel.Refresh();
+                nextPanel.Refresh();
+                nextPanel2.Refresh();
             }
             else
             {
@@ -919,7 +921,7 @@ namespace Kinect_TetrisV2
         {
             if (panelSelection != 1)
             {
-                nextShape.Draw(grNext, nextPanel2.Size);
+                nextShape.Draw(grNext2, nextPanel2.Size);
             }
         }
 
@@ -933,7 +935,7 @@ namespace Kinect_TetrisV2
             startMenu.Enabled = true;
             stopMenu.Enabled = false;
             comboBox1.Enabled = true;
-            DrawScreen();
+            screenPanel.Refresh();
         }
 
         /// <summary>

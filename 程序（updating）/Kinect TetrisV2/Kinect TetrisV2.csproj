@@ -48,6 +48,9 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="Body.cs" />
+    <Compile Include="DrawablePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
