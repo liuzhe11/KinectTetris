@@ -439,18 +439,18 @@ namespace Kinect_TetrisV2
             this.poseLibrary[0] = new Pose();
             this.poseLibrary[0].Title = "Arms Left - RotateLeft";
             this.poseLibrary[0].Angles = new PoseAngle[4];
-            this.poseLibrary[0].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 30, 10);
-            this.poseLibrary[0].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 30, 10);
-            this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 45, 10);
-            this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 45, 10);
+            this.poseLibrary[0].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 30);
+            this.poseLibrary[0].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 30);
+            this.poseLibrary[0].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 90, 30);
+            this.poseLibrary[0].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 90, 30);
 
             this.poseLibrary[4] = new Pose();
             this.poseLibrary[4].Title = "Arms Up - RotateRight";
             this.poseLibrary[4].Angles = new PoseAngle[4];
-            this.poseLibrary[4].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 150, 10);
-            this.poseLibrary[4].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 150, 10);
-            this.poseLibrary[4].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 135, 10);
-            this.poseLibrary[4].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 135, 10);
+            this.poseLibrary[4].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 90, 30);
+            this.poseLibrary[4].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 90, 30);
+            this.poseLibrary[4].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 30);
+            this.poseLibrary[4].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 30);
 
             //Pose 2 - Both Hands Cross
             this.poseLibrary[1] = new Pose();
@@ -465,20 +465,20 @@ namespace Kinect_TetrisV2
             this.poseLibrary[2] = new Pose();
             this.poseLibrary[2].Title = "Left Up and Right Down";
             this.poseLibrary[2].Angles = new PoseAngle[4];
-            this.poseLibrary[2].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 10);
-            this.poseLibrary[2].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 10);
-            this.poseLibrary[2].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 270, 10);
-            this.poseLibrary[2].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 270, 10);
+            this.poseLibrary[2].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 180, 30);
+            this.poseLibrary[2].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 180, 30);
+            this.poseLibrary[2].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 270, 30);
+            this.poseLibrary[2].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 270, 30);
 
 
             //Pose 4 - Right Up and Left Down
             this.poseLibrary[3] = new Pose();
             this.poseLibrary[3].Title = "（举起右手）Right Up and Left Down";
             this.poseLibrary[3].Angles = new PoseAngle[4];
-            this.poseLibrary[3].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 270, 10);
-            this.poseLibrary[3].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 270, 10);
-            this.poseLibrary[3].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 10);
-            this.poseLibrary[3].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 10);
+            this.poseLibrary[3].Angles[0] = new PoseAngle(JointType.ShoulderLeft, JointType.ElbowLeft, 270, 30);
+            this.poseLibrary[3].Angles[1] = new PoseAngle(JointType.ElbowLeft, JointType.WristLeft, 270, 30);
+            this.poseLibrary[3].Angles[2] = new PoseAngle(JointType.ShoulderRight, JointType.ElbowRight, 0, 30);
+            this.poseLibrary[3].Angles[3] = new PoseAngle(JointType.ElbowRight, JointType.WristRight, 0, 30);
         }
 
         /// <summary>
@@ -532,7 +532,7 @@ namespace Kinect_TetrisV2
         {
             bool ret;
             Graphics grMain = screenPanel.CreateGraphics();
-            int value = 0;
+            int value = 10;
             if (IsPose(skeleton, this.poseLibrary[0]))
             {
                 Console.WriteLine("Two hands right");
@@ -558,7 +558,7 @@ namespace Kinect_TetrisV2
                 Console.WriteLine("Right hand up, right");	//	right
                 value = RIGHT;
             }
-            if (value == lastPose && count < threshold2 * FPS)
+            if (value == lastPose && count < threshold * FPS)
             {
                 count++;
             }
