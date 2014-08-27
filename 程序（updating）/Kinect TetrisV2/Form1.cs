@@ -155,6 +155,16 @@ namespace Kinect_TetrisV2
             }
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
+
         private Point Point(int p1, int p2)
         {
             throw new NotImplementedException();
@@ -552,11 +562,14 @@ namespace Kinect_TetrisV2
             {
                 count++;
             }
-            else
+            else if (value != lastPose)
             {
                 count = 0;
                 lastPose = value;
-
+            }
+            else
+            {
+                count = 0;
                 switch (value)
                 {
                     case UP1:
@@ -673,7 +686,7 @@ namespace Kinect_TetrisV2
             // Convert point to depth space.
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
             DepthImagePoint depthPoint = this.kinect.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
-            return new Point(depthPoint.X * this.Size.Width / 640 - 90, depthPoint.Y * this.Size.Height / 480 - 60); //改大小？？
+            return new Point(depthPoint.X * this.Size.Width / 640, depthPoint.Y * this.Size.Height / 480); //改大小？？
         }
 
         /// <summary>
@@ -1031,6 +1044,7 @@ namespace Kinect_TetrisV2
            this.SetStyle(ControlStyles.DoubleBuffer |
               ControlStyles.UserPaint |
               ControlStyles.OptimizedDoubleBuffer |
+              ControlStyles.ResizeRedraw |
               ControlStyles.AllPaintingInWmPaint,
               true);
            this.UpdateStyles();
@@ -1038,7 +1052,7 @@ namespace Kinect_TetrisV2
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            ReDraw();
+            //ReDraw();
             try
             {
                 //pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\image\\instruction.bmp");
@@ -1052,10 +1066,14 @@ namespace Kinect_TetrisV2
 
         private void ReDraw()
         {
-            screenPanel.Refresh();
-            nextPanel.Refresh();
-            nextPanel2.Refresh();
-            panel1.Refresh();
+            //scoreLabel.Refresh();
+            //comboBox1.Refresh();
+            //linesLabel.Refresh();
+            //label2.Refresh();
+            //label3.Refresh();
+            //label4.Refresh();
+            //label8.Refresh();
+            this.Refresh();
         }
 
     }
