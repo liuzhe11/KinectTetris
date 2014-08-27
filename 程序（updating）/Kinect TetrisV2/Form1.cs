@@ -805,9 +805,7 @@ namespace Kinect_TetrisV2
             mainBody.Reset();
             int indexShape = rndShape.Next(7);
             nextShape = new Shape(indexShape);
-            screenPanel.Refresh();
-            nextPanel.Refresh();
-            nextPanel2.Refresh();
+            ReDraw();
         }
 
         /// <summary>
@@ -897,14 +895,12 @@ namespace Kinect_TetrisV2
             if (count > 0)
             {
                 ChangeLines(count);
-                screenPanel.Refresh();
-                nextPanel.Refresh();
-                nextPanel2.Refresh();
+                ReDraw();
             }
             else
             {
-                nextPanel.Invalidate();
-                nextPanel2.Invalidate();
+                nextPanel.Refresh();
+                nextPanel2.Refresh();
             }
         }
 
@@ -937,7 +933,7 @@ namespace Kinect_TetrisV2
             startMenu.Enabled = true;
             stopMenu.Enabled = false;
             comboBox1.Enabled = true;
-            screenPanel.Refresh();
+            ReDraw();
         }
 
         /// <summary>
@@ -1042,9 +1038,7 @@ namespace Kinect_TetrisV2
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            screenPanel.Refresh();
-            nextPanel.Refresh();
-            nextPanel2.Refresh();
+            ReDraw();
             try
             {
                 //pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\image\\instruction.bmp");
@@ -1054,6 +1048,14 @@ namespace Kinect_TetrisV2
                 Console.WriteLine("File Cannot Found："+ef.StackTrace);
 
             }
+        }
+
+        private void ReDraw()
+        {
+            screenPanel.Refresh();
+            nextPanel.Refresh();
+            nextPanel2.Refresh();
+            panel1.Refresh();
         }
 
     }
