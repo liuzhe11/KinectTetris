@@ -41,9 +41,9 @@ namespace Kinect_TetrisV2
         private int lastPose;
         private bool startFalling;
         private const int FPS = 30;
-        private const int threshold = 1; // 1sec
+        private const float poseThreshold = 0.5; // 1sec
         private int count2;
-        private const int threshold2 = 1;
+        private const float selThreshold = 1;
         private int lockFlag;
         private Skeleton skeleton = null;
         private Point savedPoint;
@@ -253,12 +253,13 @@ namespace Kinect_TetrisV2
 
                     if (panelSelection == handFlag && lockFlag == 0)
                     {
+                        savedPoint = new Point(jointPoint.X - nextPanel2.Location.X, jointPoint.Y - nextPanel2.Location.Y)
                         if(within(jointPoint, nextPanel2))
                         {
                             count2++;
                         }
                         else count2 = 0;
-                        if(count2 > threshold2*FPS)
+                        if(count2 > int(selThreshold*FPS))
                         {
                             lockFlag = 1;
                             count2 = 0;
@@ -292,12 +293,13 @@ namespace Kinect_TetrisV2
 
                     if (panelSelection == handFlag && lockFlag == 0)
                     {
+                        savedPoint = new Point(jointPoint.X - nextPanel.Location.X, jointPoint.Y - nextPanel.Location.Y)
                         if (within(jointPoint, nextPanel))
                         {
                             count2++;
                         }
                         else count2 = 0;
-                        if (count2 > threshold2 * FPS)
+                        if (count2 > int(selThreshold * FPS))
                         {
                             lockFlag = 1;
                             count2 = 0;
@@ -325,7 +327,6 @@ namespace Kinect_TetrisV2
 
         private bool within(Point Point, Panel Panel)
         {
-            savedPoint = new Point(Point.X - Panel.Location.X, Point.Y - Panel.Location.Y)
             if (Point.X > Panel.Location.X &&
                Point.X < Panel.Location.X + Panel.Width &&
                Point.Y > Panel.Location.Y &&
@@ -384,8 +385,8 @@ namespace Kinect_TetrisV2
             //get coordinate of every dot in the main UI space
             //DepthImagePoint point = kinectDevice.MapSkeletonPointToDepth(joint.Position, kinectDevice.DepthStream.Format);
             DepthImagePoint point = kinectDevice.CoordinateMapper.MapSkeletonPointToDepthPoint(joint.Position, kinectDevice.DepthStream.Format);
-            point.X = (int)((point.X - offset.X)*this.Size.Width/kinectDevice.DepthStream.FrameWidth);
-            point.Y = (int)((point.Y  - offset.Y)*this.Size.Height/kinectDevice.DepthStream.FrameHeight);
+            point.X = (int)((point.X - offset.X)*screenPanel.Size.Width/kinectDevice.DepthStream.FrameWidth);
+            point.Y = (int)((point.Y  - offset.Y)*screenPanel.Size.Height/kinectDevice.DepthStream.FrameHeight);
 
 
             return new Point(point.X, point.Y);
@@ -564,7 +565,7 @@ namespace Kinect_TetrisV2
                 Console.WriteLine("Right hand up, right");	//	right
                 value = RIGHT;
             }
-            if (value == lastPose && count < threshold * FPS)
+            if (value == lastPose && count < int(poseThreshold * FPS))
             {
                 count++;
             }
@@ -692,7 +693,7 @@ namespace Kinect_TetrisV2
             // Convert point to depth space.
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
             DepthImagePoint depthPoint = this.kinect.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
-            return new Point(depthPoint.X * this.Size.Width / 640, depthPoint.Y * this.Size.Height / 480); //改大小？？
+            return new Point(depthPoint.X * screenPanel.Size.Width / 640, depthPoint.Y * screenPanel.Size.Height / 480); //改大小？？
         }
 
         /// <summary>
