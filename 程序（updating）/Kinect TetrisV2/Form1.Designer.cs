@@ -47,11 +47,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.nextPanel = new Kinect_TetrisV2.TransPanel();
-            this.screenPanel = new System.Windows.Forms.Panel();
+            this.nextPanel = new DrawablePanel();
+            this.screenPanel = new DrawablePanel();
             this.panel1 = new Kinect_TetrisV2.TransPanel();
             this.label8 = new System.Windows.Forms.Label();
-            this.nextPanel2 = new Kinect_TetrisV2.TransPanel();
+            this.nextPanel2 = new DrawablePanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
