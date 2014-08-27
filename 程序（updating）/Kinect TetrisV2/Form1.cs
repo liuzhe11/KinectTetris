@@ -806,6 +806,8 @@ namespace Kinect_TetrisV2
             int indexShape = rndShape.Next(7);
             nextShape = new Shape(indexShape);
             screenPanel.Refresh();
+            nextPanel.Refresh();
+            nextPanel2.Refresh();
         }
 
         /// <summary>
@@ -911,7 +913,7 @@ namespace Kinect_TetrisV2
         /// </summary>
         public void ReDrawNextShape(Graphics grNext)
         {
-            if (panelSelection == 1)
+            if (panelSelection == 1 && nextShape != null)
             {
                 nextShape.Draw(grNext, nextPanel.Size);
             }
@@ -919,7 +921,7 @@ namespace Kinect_TetrisV2
 
         public void ReDrawNextShape2(Graphics grNext2)
         {
-            if (panelSelection != 1)
+            if (panelSelection != 1 && nextShape != null)
             {
                 nextShape.Draw(grNext2, nextPanel2.Size);
             }
