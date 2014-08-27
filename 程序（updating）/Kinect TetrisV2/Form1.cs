@@ -109,6 +109,9 @@ namespace Kinect_TetrisV2
             StartKinectST();
             EnableDoubleBuffering();
             panel1.DrawFunc += new DrawEventHandler(this.DrawPanel1);
+            screenPanel.DrawFunc += new DrawEventHandler(this.DrawScreen);
+            nextPanel.DrawFunc += new DrawEventHandler(this.ReDrawNextShape);
+            nextPanel2.DrawFunc += new DrawEventHandler(this.ReDrawNextShape2);
         }
 
 
@@ -556,7 +559,7 @@ namespace Kinect_TetrisV2
 
                 switch (value)
                 {
-                    case UP1:	
+                    case UP1:
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATERIGHT);
                         break;
                     case UP2:
@@ -713,27 +716,22 @@ namespace Kinect_TetrisV2
         /// <summary>
         /// Drawing the window
         /// </summary>
-        public void DrawScreen()
+        public void DrawScreen(Graphics grMain)
         {
             //Judge the game status
             if (gameStatus == GAME_STATUS.GAME_RUN || gameStatus == GAME_STATUS.GAME_OVER)
             {
-                ReDrawNextShape();
-
-                Graphics grMain = screenPanel.CreateGraphics();
                 grMain.FillRectangle(new SolidBrush(Color.White), 0, 0, screenPanel.Width, screenPanel.Height);
                 mainBody.Draw(grMain, startFalling);
             }
             if (gameStatus == GAME_STATUS.GAME_STOP || gameStatus == GAME_STATUS.GAME_OVER)
             {
-                Graphics grMain = screenPanel.CreateGraphics();
                 string logo = "Kinect Tetris";
 
                 DrawText(logo, grMain, new Point(10, (int)(screenPanel.Height * 0.28)), 20);
             }
             if (gameStatus == GAME_STATUS.GAME_OVER)
             {
-                Graphics grMain = screenPanel.CreateGraphics();
                 string logo = "Game over";
 
                 DrawText(logo, grMain, new Point(20, (int)(screenPanel.Height * 0.42)), 15);
@@ -901,23 +899,27 @@ namespace Kinect_TetrisV2
             }
             else
             {
-                ReDrawNextShape();
+                nextPanel.Invalidate();
+                nextPanel2.Invalidate();
             }
         }
 
         /// <summary>
         /// Re-draw the falling Interface
         /// </summary>
-        public void ReDrawNextShape()
+        public void ReDrawNextShape(Graphics grNext)
         {
-            Graphics grNext = nextPanel.CreateGraphics();
-            Graphics grNext2 = nextPanel2.CreateGraphics();
-            grNext.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel.Width, nextPanel.Height);
-            grNext2.FillRectangle(new SolidBrush(Color.White), 0, 0, nextPanel2.Width, nextPanel2.Height);
-            if (panelSelection == 1) {
+            if (panelSelection == 1)
+            {
                 nextShape.Draw(grNext, nextPanel.Size);
-            } else {
-                nextShape.Draw(grNext2, nextPanel2.Size);
+            }
+        }
+
+        public void ReDrawNextShape2(Graphics grNext2)
+        {
+            if (panelSelection != 1)
+            {
+                nextShape.Draw(grNext, nextPanel2.Size);
             }
         }
 
@@ -1036,7 +1038,9 @@ namespace Kinect_TetrisV2
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            DrawScreen();
+            screenPanel.Refresh();
+            nextPanel.Refresh();
+            nextPanel2.Refresh();
             try
             {
                 //pictureBox1.Image = Image.FromFile(Application.StartupPath + "\\image\\instruction.bmp");

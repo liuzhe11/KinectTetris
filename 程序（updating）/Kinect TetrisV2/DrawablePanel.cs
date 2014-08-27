@@ -11,10 +11,10 @@ namespace Kinect_TetrisV2
   /// Summary description for TransPanel.
   /// </summary>
   public delegate void DrawEventHandler(Graphics g);
-  public class TransPanel : Panel
+  public class DrawablePanel : Panel
   {
     public event DrawEventHandler DrawFunc;
-    public TransPanel()
+    public DrawablePanel()
     {
         // Set the value of the double-buffering style bits to true.
         //this.DoubleBuffered = true;
@@ -34,17 +34,6 @@ namespace Kinect_TetrisV2
         cp.ExStyle|=0x00000020; //WS_EX_TRANSPARENT
         return cp;
       }
-    }
-
-    public void InvalidateEx()
-    {
-      if(Parent==null)
-        return;
-
-      Rectangle rc=new Rectangle(this.Location,this.Size);
-      Parent.Invalidate(rc,true);
-      Parent.Update();
-      //this.Invalidate();
     }
 
     protected override void OnPaintBackground(PaintEventArgs pevent)
