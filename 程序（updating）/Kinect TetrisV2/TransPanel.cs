@@ -42,8 +42,9 @@ namespace Kinect_TetrisV2
         return;
 
       Rectangle rc=new Rectangle(this.Location,this.Size);
-      Parent.Invalidate(rc,true);
+      Parent.Invalidate(rc,false);
       Parent.Update();
+      this.Refresh();
       //this.Invalidate();
     }
 
