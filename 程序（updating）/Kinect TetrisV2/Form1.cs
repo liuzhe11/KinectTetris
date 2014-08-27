@@ -43,9 +43,10 @@ namespace Kinect_TetrisV2
         private const int FPS = 30;
         private const int threshold = 1; // 1sec
         private int count2;
-        private const int threshold2 = 3;
+        private const int threshold2 = 1;
         private int lockFlag;
         private Skeleton skeleton = null;
+        private Point savedPoint;
 
         enum GAME_STATUS { GAME_STOP, GAME_RUN, GAME_OVER };
 
@@ -127,6 +128,7 @@ namespace Kinect_TetrisV2
             count2 = 0;
             lockFlag = 0;
             startFalling = false;
+            savedPoint = new Point(0,0);
             // Get first Kinect Sensor
             kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
             //Notice: this judgement doesn't work for MS
@@ -241,6 +243,7 @@ namespace Kinect_TetrisV2
         private void TrackHand(Joint hand, int handFlag)
         {
             // hand: 0 for left, 1 for right
+            if (startFalling) return;
             if (handFlag == 0)
             {
                 if (hand.TrackingState == JointTrackingState.Tracked)
@@ -263,10 +266,11 @@ namespace Kinect_TetrisV2
                     }
                     if (panelSelection == handFlag && lockFlag == 1)
                     {
-                        this.nextPanel2.Location = new Point(jointPoint.X, jointPoint.Y);
+                        this.nextPanel2.Location = new Point(jointPoint.X - savedPoint.X, jointPoint.Y - savedPoint.Y);
                         if (within(jointPoint, screenPanel))
                         {
                             lockFlag = 0;
+                            savedPoint = new Point(0,0);
                             startFalling = true;
 
                             if (GetNextShape())
@@ -301,10 +305,11 @@ namespace Kinect_TetrisV2
                     }
                     if (panelSelection == handFlag && lockFlag == 1)
                     {
-                        this.nextPanel.Location = new Point(jointPoint.X, jointPoint.Y);
+                        this.nextPanel.Location = new Point(jointPoint.X - savedPoint.X, jointPoint.Y - savedPoint.Y);
                         if (within(jointPoint, screenPanel))
                         {
                             lockFlag = 0;
+                            savedPoint = new Point(0,0);
                             startFalling = true;
 
                             if (GetNextShape())
@@ -320,6 +325,7 @@ namespace Kinect_TetrisV2
 
         private bool within(Point Point, Panel Panel)
         {
+            savedPoint = new Point(Point.X - Panel.Location.X, Point.Y - Panel.Location.Y)
             if (Point.X > Panel.Location.X &&
                Point.X < Panel.Location.X + Panel.Width &&
                Point.Y > Panel.Location.Y &&
@@ -573,10 +579,10 @@ namespace Kinect_TetrisV2
                 switch (value)
                 {
                     case UP1:
-                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATERIGHT);
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATELEFT);
                         break;
                     case UP2:
-                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATELEFT);
+                        ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_ROTATERIGHT);
                         break;
                     case LEFT:	//	left
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_LEFT);
@@ -863,10 +869,13 @@ namespace Kinect_TetrisV2
                         ret = mainBody.MoveShape(grMain, Body.MOVE_TYPE.MOVE_FALL);
                         break;
                     case Keys.Tab:
-                        startFalling = true;
-                        if (GetNextShape())
+                        if (!startFalling)
                         {
-                            GameOver();
+                            startFalling = true;
+                            if (GetNextShape())
+                            {
+                                GameOver();
+                            }
                         }
                         ret = false;
                         break;
